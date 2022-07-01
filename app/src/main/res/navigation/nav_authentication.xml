@@ -12,7 +12,7 @@
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_registerEmailFragment"
+            android:id="@+id/toRegisterEmailFragment"
             app:destination="@id/registerEmailFragment" />
     </fragment>
 
@@ -26,5 +26,23 @@
         android:id="@+id/registerEmailFragment"
         android:name="br.com.rorizinfo.cardFidelize.ui.authentication.fragment.RegisterEmailFragment"
         android:label="RegisterEmailFragment"
-        tools:layout="@layout/fragment_register_email" />
+        tools:layout="@layout/fragment_register_email">
+        <action
+            android:id="@+id/toRegisterPasswordFragment"
+            app:destination="@id/registerPasswordFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerPasswordFragment2"
+        android:name="br.com.rorizinfo.cardFidelize.ui.authentication.fragment.RegisterPasswordFragment"
+        android:label="RegisterPasswordFragment"
+        tools:layout="@layout/fragment_register_password">
+        <action
+            android:id="@+id/toConfirmRegisterPassword"
+            app:destination="@id/confirmRegisterPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmRegisterPasswordFragment"
+        android:name="br.com.rorizinfo.cardFidelize.ui.authentication.fragment.ConfirmRegisterPasswordFragment"
+        android:label="ConfirmRegisterPasswordFragment"
+        tools:layout="@layout/fragment_register_confirm_password" />
 </navigation>

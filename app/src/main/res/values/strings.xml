@@ -33,4 +33,7 @@
     <string name="length_password_error">Sua senha precisa conter cinco dígitos</string>
     <string name="message_password_not_equals">"Ops! As senhas não são iguais , tente novamente "</string>
     <string name="emailAlreadyExists">O e-mail digitado já foi cadastrado, se não se lembrar da sua senha, use a opção esqueci minha senha.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="registration_confirm_register_password_error">Houve um erro ao registrar sua senha , por favor tente novamente!</string>
 </resources>

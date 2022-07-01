@@ -62,7 +62,7 @@ class LoginFragment : Fragment() {
                 LoginEvent.GoToForgotPassword -> TODO()
                 LoginEvent.GoToHome -> TODO()
                 LoginEvent.GoToRegister -> {
-                    findNavController().navigateWithAnim(R.id.action_loginFragment_to_registerEmailFragment)
+                    findNavController().navigateWithAnim(R.id.toRegisterEmailFragment)
                 }
                 LoginEvent.SuccessBiometric -> TODO()
                 LoginEvent.OpenDialogBiometric -> {
