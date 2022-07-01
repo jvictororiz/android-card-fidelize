@@ -1,0 +1,35 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Androidcardfidelize" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryColor</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secundaryColor</item>
+        <item name="colorSecondaryVariant">@color/primaryColor</item>
+        <item name="colorOnSecondary">@color/secundaryColor</item>
+        <item name="materialButtonStyle">@style/PrimaryButton</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="PrimaryInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxCornerRadiusBottomEnd">@dimen/corners_default</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/corners_default</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/corners_default</item>
+        <item name="boxCornerRadiusTopStart">@dimen/corners_default</item>
+        <item name="android:textColorHint">@color/slowGray</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
+
+    <style name="PrimaryButton" parent="Widget.Material3.Button">
+        <item name="textAllCaps">false</item>
+        <item name="cornerRadius">@dimen/corners_default</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

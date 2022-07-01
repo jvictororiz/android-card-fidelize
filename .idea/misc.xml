@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/ic_account.xml" value="0.2195" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/ic_arrow_righ_small.xml" value="0.2195" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.2195" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/ic_biometric.xml" value="0.2195" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/ic_key.xml" value="0.2195" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/ic_waiting.xml" value="0.2195" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/radio_butoon_pressed.xml" value="0.2195" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/radio_butoon_un_pressed.xml" value="0.2195" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/selector_text_color_black_white.xml" value="0.2195" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/shape_gradient.xml" value="0.2195" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/shape_square_corners.xml" value="0.2195" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/layout/fragment_login.xml" value="0.16" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/layout/fragment_register_chose_type.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/layout/fragment_register_confirm_email.xml" value="0.25" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/layout/fragment_register_confirm_password.xml" value="0.33" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/layout/fragment_register_email.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/layout/fragment_register_name.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/layout/fragment_register_password.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/layout/fragment_register_user.xml" value="0.358695652173913" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
