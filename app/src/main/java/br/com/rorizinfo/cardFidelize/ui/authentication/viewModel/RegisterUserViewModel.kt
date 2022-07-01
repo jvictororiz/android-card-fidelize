@@ -7,8 +7,8 @@ import br.com.rorizinfo.cardFidelize.R
 import br.com.rorizinfo.cardFidelize.domain.model.User
 import br.com.rorizinfo.cardFidelize.domain.usecase.ValidateEmailUseCase
 import br.com.rorizinfo.cardFidelize.domain.usecase.VerifyEmailAlreadyExistsUseCase
-import br.com.rorizinfo.cardFidelize.ui.authentication.viewModel.model.registerUser.userEmail.RegisterUserEvent
-import br.com.rorizinfo.cardFidelize.ui.authentication.viewModel.model.registerUser.userEmail.RegisterUserState
+import br.com.rorizinfo.cardFidelize.ui.authentication.viewModel.model.registerUser.registerUser.RegisterUserEvent
+import br.com.rorizinfo.cardFidelize.ui.authentication.viewModel.model.registerUser.registerUser.RegisterUserState
 import br.com.rorizinfo.cardFidelize.ui.util.MultipleLiveState
 import br.com.rorizinfo.cardFidelize.ui.util.SingleLiveEvent
 import kotlinx.coroutines.launch

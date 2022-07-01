@@ -28,13 +28,16 @@ class LoginViewModel(
         checkBiometric(biometricManager)
     }
     
-    private fun checkBiometric(biometricManager: BiometricManager) {
+    private fun checkBiometric(biometricManager: BiometricManager) = viewModelScope.launch {
+        val user = localPreference.get(BasePreference.EmailUser)
+        val password = localPreference.get(BasePreference.PasswordUser)
         val deviceWithBiometric =
             biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK) == BiometricManager.BIOMETRIC_SUCCESS
-        updateState { it.copy(hasBiometric = deviceWithBiometric) }
+        val enableBiometric = user.isNotEmpty() && password.isNotEmpty() && deviceWithBiometric
+        updateState { it.copy(hasBiometric = enableBiometric) }
     }
     
-    fun tapOnBiometric(){
+    fun tapOnBiometric() {
         LoginEvent.OpenDialogBiometric.run()
     }
     

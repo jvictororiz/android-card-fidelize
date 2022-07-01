@@ -11,7 +11,7 @@
         android:name="BaseApplication"
         android:theme="@style/Theme.Androidcardfidelize">
         <activity
-            android:name="br.com.rorizinfo.cardFidelize.ui.MainActivity"
+            android:name="br.com.rorizinfo.cardFidelize.ui.authentication.AuthenticationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.homeUser.HomeUserActivity" />
     </application>
 
 </manifest>

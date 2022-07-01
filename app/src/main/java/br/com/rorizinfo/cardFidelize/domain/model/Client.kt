@@ -1,6 +1,10 @@
 package br.com.rorizinfo.cardFidelize.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Client(
-    val user: User,
-    val name: String = ""
-)
+    var user: User,
+    var name: String = ""
+) : Parcelable
