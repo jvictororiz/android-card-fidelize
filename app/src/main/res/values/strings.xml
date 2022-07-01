@@ -29,4 +29,7 @@
     <string name="message_description_biometric_dialog">Use suas credenciais para entrar no aplicativo.</string>
     <string name="message_enter_login_password_not_save">Digitar senha</string>
     <string name="error_login_fingerprint">Erro ao fazer login com sua biometria</string>
+    <string name="empty_password_error">"Você precisar digitar uma senha para continuar "</string>
+    <string name="length_password_error">Sua senha precisa conter cinco dígitos</string>
+    <string name="message_password_not_equals">"Ops! As senhas não são iguais , tente novamente "</string>
 </resources>

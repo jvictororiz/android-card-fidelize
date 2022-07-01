@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ACT/AndroidStudioProjects/android-card-fidelize/app/src/main/res/layout/fragment_register_confirm_password.xml" value="0.22" />
+        <entry key="..\:/Users/ACT/AndroidStudioProjects/android-card-fidelize/app/src/main/res/layout/fragment_register_password.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/ic_account.xml" value="0.2195" />
         <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/ic_arrow_righ_small.xml" value="0.2195" />
         <entry key="..\:/Users/joaov/AndroidStudioProjects/androidcardfidelize/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.2195" />
