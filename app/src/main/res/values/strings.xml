@@ -32,4 +32,5 @@
     <string name="empty_password_error">"Você precisar digitar uma senha para continuar "</string>
     <string name="length_password_error">Sua senha precisa conter cinco dígitos</string>
     <string name="message_password_not_equals">"Ops! As senhas não são iguais , tente novamente "</string>
+    <string name="emailAlreadyExists">O e-mail digitado já foi cadastrado, se não se lembrar da sua senha, use a opção esqueci minha senha.</string>
 </resources>

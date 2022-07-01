@@ -9,4 +9,5 @@ interface UserLoginService {
     suspend fun confirmPasswordReset(code: String, email: String): Result<Void?>
     suspend fun doLogin(email: String, password: String): Result<RegisterUserResponse>
     suspend fun verifyConfirmationAccount(email: String, password: String): Boolean
+    suspend fun verifyEmailAlreadyExists(email: String): Boolean
 }

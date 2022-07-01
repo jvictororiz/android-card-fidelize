@@ -14,6 +14,7 @@ import br.com.rorizinfo.cardFidelize.ui.authentication.viewModel.LoginViewModel
 import br.com.rorizinfo.cardFidelize.ui.authentication.viewModel.model.login.LoginEvent
 import br.com.rorizinfo.cardFidelize.ui.component.FingerPrintView
 import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
+import br.com.rorizinfo.cardFidelize.ui.util.showMessage
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -61,7 +62,7 @@ class LoginFragment : Fragment() {
                 LoginEvent.GoToForgotPassword -> TODO()
                 LoginEvent.GoToHome -> TODO()
                 LoginEvent.GoToRegister -> {
-                    findNavController().navigateWithAnim(R.id.action_loginFragment_to_registerChoseTypeFragment)
+                    findNavController().navigateWithAnim(R.id.action_loginFragment_to_registerEmailFragment)
                 }
                 LoginEvent.SuccessBiometric -> TODO()
                 LoginEvent.OpenDialogBiometric -> {
@@ -75,7 +76,7 @@ class LoginFragment : Fragment() {
                     )
                 }
                 is LoginEvent.ShowAlert -> {
-                    Snackbar.make(binding.root, event.messageError, Snackbar.LENGTH_SHORT).show()
+                    binding.root.showMessage(event.messageError)
                 }
             }
         }

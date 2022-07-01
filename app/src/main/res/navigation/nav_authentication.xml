@@ -8,19 +8,23 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        tools:layout="@layout/fragment_login"
         android:name="br.com.rorizinfo.cardFidelize.ui.authentication.fragment.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
         <action
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="false"
-            android:id="@+id/action_loginFragment_to_registerChoseTypeFragment"
-            app:destination="@id/registerChoseTypeFragment" />
+            android:id="@+id/action_loginFragment_to_registerEmailFragment"
+            app:destination="@id/registerEmailFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/registerChoseTypeFragment"
-        tools:layout="@layout/fragment_register_chose_type"
         android:name="br.com.rorizinfo.cardFidelize.ui.authentication.fragment.RegisterChoseTypeFragment"
-        android:label="RegisterChoseTypeFragment" />
+        android:label="RegisterChoseTypeFragment"
+        tools:layout="@layout/fragment_register_chose_type" />
+
+    <fragment
+        android:id="@+id/registerEmailFragment"
+        android:name="br.com.rorizinfo.cardFidelize.ui.authentication.fragment.RegisterEmailFragment"
+        android:label="RegisterEmailFragment"
+        tools:layout="@layout/fragment_register_email" />
 </navigation>
