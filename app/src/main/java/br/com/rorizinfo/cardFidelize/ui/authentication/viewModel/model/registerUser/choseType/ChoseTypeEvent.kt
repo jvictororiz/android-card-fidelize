@@ -4,5 +4,4 @@ sealed class ChoseTypeEvent {
     object GoToRegisterUser : ChoseTypeEvent()
     object GoToRegisterCompany : ChoseTypeEvent()
     object GoToBack : ChoseTypeEvent()
-    
 }

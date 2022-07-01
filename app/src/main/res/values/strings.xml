@@ -29,4 +29,5 @@
     <string name="message_description_biometric_dialog">Use suas credenciais para entrar no aplicativo.</string>
     <string name="message_enter_login_password_not_save">Digitar senha</string>
     <string name="error_login_fingerprint">Erro ao fazer login com sua biometria</string>
+    <string name="emailAlreadyExists">O e-mail digitado já foi cadastrado, se não se lembrar da sua senha, use a opção esqueci minha senha.</string>
 </resources>

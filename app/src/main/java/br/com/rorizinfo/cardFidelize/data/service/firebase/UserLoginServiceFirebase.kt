@@ -10,7 +10,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.BuildConfig
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 
 class UserLoginServiceFirebase(
     private val firebaseDatabase: FirebaseDatabase,
@@ -54,6 +53,15 @@ class UserLoginServiceFirebase(
             Result.success(null)
         } catch (exception: Exception) {
             Result.failure(exception)
+        }
+    }
+    
+    override suspend fun verifyEmailAlreadyExists(email: String): Boolean {
+        return try {
+            database.orderByChild("email").equalTo(email).get().await().exists()
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+            false
         }
     }
     

@@ -28,6 +28,10 @@ class UserRepositoryImpl(
         return loginService.verifyConfirmationAccount(email, password)
     }
     
+    override suspend fun verifyEmailAlreadyExists(email: String): Boolean {
+        return loginService.verifyEmailAlreadyExists(email)
+    }
+    
     override suspend fun doLogin(email: String, password: String): Result<RegisterUser> {
         return loginService.doLogin(email, password).map {
             it.toRegisterUser()
