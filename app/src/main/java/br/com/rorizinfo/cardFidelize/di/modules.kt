@@ -11,6 +11,7 @@ import br.com.rorizinfo.cardFidelize.data.service.firebase.UserLoginServiceFireb
 import br.com.rorizinfo.cardFidelize.domain.usecase.*
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.LoginViewModel
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterChoseTypeViewModel
+import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterCompanyViewModel
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterNameUserViewModel
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterUserViewModel
 import com.google.firebase.auth.ktx.auth
@@ -20,14 +21,14 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val modules = module {
-    
+
     //firebase
     single { Firebase.database }
     single { Firebase.auth }
-    
+
     //repository
     single<UserRepository> { UserRepositoryImpl(get()) }
-    
+
     //usecase
     single { DoLoginUserCase(get()) }
     single { ValidateEmailUseCase() }
@@ -40,17 +41,32 @@ val modules = module {
     single { SendEmailVerificationUseCase(get()) }
     single { SaveUserUseCase(get()) }
     single { VerifyValidationAccountUseCase(get()) }
-    
+    single { ValidateNameCompanyUseCase(get()) }
+    single { ValidateCnpjCompanyUseCase(get()) }
+
     //viewmodel
     viewModel { LoginViewModel(get(), get(), get(), get()) }
     viewModel { RegisterChoseTypeViewModel() }
-    viewModel { RegisterUserViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
+    viewModel { RegisterCompanyViewModel(get(), get()) }
+    viewModel {
+        RegisterUserViewModel(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
     viewModel { params -> RegisterNameUserViewModel(params.get(), get(), get(), get()) }
-    
+
     //service
     single<UserLoginService> { UserLoginServiceFirebase(get(), get()) }
     single<ClientService> { ClientServiceFirebase(get()) }
-    
+
     //others
     single { LocalPreference(get()) }
     factory { BiometricManager.from(get()) }
