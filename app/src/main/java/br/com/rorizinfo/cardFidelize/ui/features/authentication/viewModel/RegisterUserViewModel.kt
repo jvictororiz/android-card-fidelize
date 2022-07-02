@@ -5,6 +5,8 @@ import android.os.CountDownTimer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.rorizinfo.cardFidelize.R
+import br.com.rorizinfo.cardFidelize.data.preference.BasePreference
+import br.com.rorizinfo.cardFidelize.data.preference.LocalPreference
 import br.com.rorizinfo.cardFidelize.data.service.firebase.exception.AccountAlreadyExists
 import br.com.rorizinfo.cardFidelize.domain.model.User
 import br.com.rorizinfo.cardFidelize.domain.usecase.*
@@ -22,6 +24,8 @@ class RegisterUserViewModel(
     private val confirmPasswordUseCase: ConfirmPasswordUseCase,
     private val saveUserUseCase: SaveUserUseCase,
     private val sendEmailVerificationUseCase: SendEmailVerificationUseCase,
+    private val verifyValidationAccountUseCase: VerifyValidationAccountUseCase,
+    private val localPreference: LocalPreference,
     private val context: Context
 ) : ViewModel() {
 
@@ -94,13 +98,25 @@ class RegisterUserViewModel(
             override fun onTick(millisUntilFinished: Long) {
                 updateState { it.copy(countSendEmail = (millisUntilFinished / 1000).toString()) }
             }
-
+            
             override fun onFinish() {
                 updateState { it.copy(enableNextButton = true) }
             }
         }.start()
     }
-
+    
+    fun tapOnVerifyValidationEmail() = viewModelScope.launch {
+        updateState { it.copy(showLoading = true) }
+        if (verifyValidationAccountUseCase(user.email, user.password)) {
+            localPreference.save(BasePreference.EmailUser, user.email)
+            localPreference.save(BasePreference.PasswordUser, user.password)
+            RegisterUserEvent.GoToNext.run()
+        } else {
+            RegisterUserEvent.ShowAlertMessage(context.getString(R.string.email_not_validate)).run()
+        }
+        updateState { it.copy(showLoading = false) }
+    }
+    
     fun tapOnNextConfirmRegisterPassword() = viewModelScope.launch {
         updateState { it.copy(showLoading = true) }
         val result = saveUserUseCase(user)
@@ -125,15 +141,15 @@ class RegisterUserViewModel(
         }
         updateState { it.copy(showLoading = false) }
     }
-
+    
     fun tapOnCancel() {
         RegisterUserEvent.OnCancel.run()
     }
-
+    
     fun tapOnBack() {
         RegisterUserEvent.GoToBack.run()
     }
-
+    
     fun tapOnNextEmail() = viewModelScope.launch {
         updateState { it.copy(showLoading = true) }
         val emailAlreadyExists = verifyEmailAlreadyExistsUseCase(user.email)
@@ -144,11 +160,11 @@ class RegisterUserViewModel(
         }
         updateState { it.copy(showLoading = false) }
     }
-
+    
     private fun updateState(newStateRegister: (RegisterUserState) -> RegisterUserState) {
         stateLiveData.setValue(newStateRegister(stateLiveData.value ?: RegisterUserState()))
     }
-
+    
     private fun RegisterUserEvent.run() {
         eventLiveData.value = this
     }

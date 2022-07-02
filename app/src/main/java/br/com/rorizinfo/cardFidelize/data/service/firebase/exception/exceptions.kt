@@ -4,3 +4,4 @@ import java.lang.Exception
 
 class AccountNotCreated : Exception()
 class AccountAlreadyExists: Exception()
+class PendingValidationEmail: Exception()

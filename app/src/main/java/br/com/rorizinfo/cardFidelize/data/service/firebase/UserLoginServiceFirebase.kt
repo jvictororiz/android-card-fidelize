@@ -28,7 +28,7 @@ class UserLoginServiceFirebase(
     override suspend fun saveUser(user: RegisterUserRequest): Result<RegisterUserResponse> {
         return try {
             val resultUser = firebaseAuth.createUserWithEmailAndPassword(user.email, user.password).await()
-            val idUser = database.push().key?:""
+            val idUser = database.push().key ?: ""
             database.child(idUser).setValue(user.apply { id = idUser }).await()
             Result.success(RegisterUserResponse(resultUser.user?.isEmailVerified == true, user.email))
         } catch (exception: Exception) {
@@ -56,14 +56,13 @@ class UserLoginServiceFirebase(
             currentUser.sendEmailVerification().await()
             Result.success(null)
         } catch (exception: Exception) {
-            
             Result.failure(exception)
         }
     }
     
     override suspend fun verifyEmailAlreadyExists(email: String): Boolean {
         return try {
-            database.orderByChild("email").equalTo(email).get().await().exists()
+            database.get().await().children.map { it.getValue(RegisterUserRequest::class.java) }.find { it?.email == email } != null
         } catch (exception: Exception) {
             exception.printStackTrace()
             false

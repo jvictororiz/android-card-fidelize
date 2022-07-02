@@ -1,10 +1,6 @@
 package br.com.rorizinfo.cardFidelize.ui.util
 
-import android.app.Activity
-import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
-import android.text.Selection.setSelection
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
@@ -15,7 +11,11 @@ import com.google.android.material.snackbar.Snackbar
 
 
 fun ViewGroup.showMessage(message: String, duration: Int = Snackbar.LENGTH_SHORT) {
-    Snackbar.make(this, message, duration).show()
+    Snackbar.make(this, message, duration).apply {
+        findViewById<TextView>(com.google.android.material.R.id.snackbar_text).apply {
+            setTextMaxLines(4)
+        }
+    }.show()
 }
 
 fun TextView.setTextHtml(text: String) {

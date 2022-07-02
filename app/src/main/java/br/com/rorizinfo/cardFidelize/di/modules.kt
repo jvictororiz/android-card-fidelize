@@ -36,11 +36,12 @@ val modules = module {
     single { VerifyEmailAlreadyExistsUseCase(get()) }
     single { SendEmailVerificationUseCase(get()) }
     single { SaveUserUseCase(get()) }
+    single { VerifyValidationAccountUseCase(get()) }
     
     //viewmodel
     viewModel { LoginViewModel(get(), get(), get(), get()) }
     viewModel { RegisterChoseTypeViewModel() }
-    viewModel { RegisterUserViewModel(get(), get(), get(), get(), get(), get(), get()) }
+    viewModel { RegisterUserViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
     viewModel { params -> RegisterNameUserViewModel(params.get(), get(), get()) }
     
     //service

@@ -12,6 +12,7 @@ import br.com.rorizinfo.cardFidelize.R
 import br.com.rorizinfo.cardFidelize.databinding.FragmentRegisterConfirmPasswordBinding
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterUserViewModel
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.registerUser.RegisterUserEvent
+import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
 import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoard
 import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoardView
 import br.com.rorizinfo.cardFidelize.ui.util.showMessage
@@ -44,7 +45,6 @@ class ConfirmRegisterPasswordFragment : Fragment() {
     private fun setupListeners() {
         binding.root.setOnClickListener {
             binding.root.showKeyBoardView(binding.edtPassword)
-
         }
         binding.edtPassword.addTextChangedListener {
             viewModel.validateConfirmPassword(it.toString())
@@ -75,7 +75,7 @@ class ConfirmRegisterPasswordFragment : Fragment() {
             when (event) {
                 is RegisterUserEvent.GoToBack -> findNavController().popBackStack()
                 is RegisterUserEvent.GoToNext -> {
-                    findNavController().navigate(R.id.toValidationEmail)
+                    findNavController().navigateWithAnim(R.id.toValidationEmail)
                 }
                 is RegisterUserEvent.ShowAlertMessage -> binding.root.showMessage(event.message)
                 is RegisterUserEvent.OnCancel -> findNavController().popBackStack(
