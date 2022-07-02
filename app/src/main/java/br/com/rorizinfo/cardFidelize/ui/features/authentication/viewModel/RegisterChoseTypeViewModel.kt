@@ -1,12 +1,15 @@
 package br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel
 
 import androidx.lifecycle.ViewModel
+import br.com.rorizinfo.cardFidelize.domain.model.User
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.choseType.ChoseTypeEvent
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.choseType.ChoseTypeState
 import br.com.rorizinfo.cardFidelize.ui.util.MultipleLiveState
 import br.com.rorizinfo.cardFidelize.ui.util.SingleLiveEvent
 
-class RegisterChoseTypeViewModel : ViewModel() {
+class RegisterChoseTypeViewModel(
+    private val user: User
+) : ViewModel() {
     
     val stateLiveData = MultipleLiveState<ChoseTypeState>()
     val eventLiveData = SingleLiveEvent<ChoseTypeEvent>()
@@ -18,9 +21,9 @@ class RegisterChoseTypeViewModel : ViewModel() {
     
     fun goToNext(position: Int) {
         if (position == COMPANY_POSITION) {
-            ChoseTypeEvent.GoToRegisterCompany.run()
+            ChoseTypeEvent.GoToRegisterCompany(user).run()
         } else {
-            ChoseTypeEvent.GoToRegisterUser.run()
+            ChoseTypeEvent.GoToRegisterUser(user).run()
         }
     }
     

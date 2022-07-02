@@ -55,8 +55,8 @@ val modules = module {
 
     //viewmodel
     viewModel { LoginViewModel(get(), get(), get(), get()) }
-    viewModel { RegisterChoseTypeViewModel() }
-    viewModel { RegisterCompanyViewModel(get(), get()) }
+    viewModel { params -> RegisterChoseTypeViewModel(params.get()) }
+    viewModel {  params -> RegisterCompanyViewModel(params.get(), get()) }
     viewModel {
         RegisterUserViewModel(
             get(),

@@ -10,11 +10,15 @@ import br.com.rorizinfo.cardFidelize.R
 import br.com.rorizinfo.cardFidelize.databinding.FragmentRegisterChoseTypeBinding
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterChoseTypeViewModel
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.choseType.ChoseTypeEvent
+import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class RegisterChoseTypeFragment : Fragment() {
     private lateinit var binding: FragmentRegisterChoseTypeBinding
-    private val viewModel by viewModel<RegisterChoseTypeViewModel>()
+    private val viewModel by viewModel<RegisterChoseTypeViewModel>{
+        parametersOf(arguments?.getParcelable(EXTRA_USER))
+    }
     
     
     override fun onCreateView(
@@ -52,9 +56,21 @@ class RegisterChoseTypeFragment : Fragment() {
         viewModel.eventLiveData.observe(viewLifecycleOwner) { event ->
             when (event) {
                 ChoseTypeEvent.GoToBack -> findNavController().popBackStack(R.id.loginFragment, false)
-                ChoseTypeEvent.GoToRegisterCompany -> TODO()
-                ChoseTypeEvent.GoToRegisterUser -> TODO()
+                is ChoseTypeEvent.GoToRegisterCompany -> {
+                    findNavController().navigateWithAnim(R.id.toComanyRegister, Bundle().apply {
+                        putParcelable(RegisterNameCompanyFragment.EXTRA_USER, event.user)
+                    })
+                }
+                is ChoseTypeEvent.GoToRegisterUser -> {
+                    findNavController().navigateWithAnim(R.id.toClientRegister, Bundle().apply {
+                        putParcelable(RegisterNameUserFragment.EXTRA_USER, event.user)
+                    })
+                }
             }
         }
+    }
+    
+    companion object {
+        const val EXTRA_USER = "EXTRA_USER"
     }
 }

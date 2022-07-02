@@ -15,7 +15,6 @@ class RegisterCompanyViewModel(
     validateNameCompanyUseCase: ValidateNameCompanyUseCase,
 ) : ViewModel() {
 
-
     val stateLiveData = MultipleLiveState<NameUserState>()
     val eventLiveData = SingleLiveEvent<NameUserEvent>()
 

@@ -22,7 +22,9 @@ import org.koin.core.parameter.parametersOf
 
 class RegisterNameCompanyFragment : Fragment() {
     private lateinit var binding: FragmentRegisterNameCompanyBinding
-    private val viewModel by sharedViewModel<RegisterCompanyViewModel>()
+    private val viewModel by sharedViewModel<RegisterCompanyViewModel>{
+        parametersOf(arguments?.getParcelable(RegisterNameUserFragment.EXTRA_USER))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +77,6 @@ class RegisterNameCompanyFragment : Fragment() {
     }
 
     companion object {
-        private const val EXTRA_USER = "EXTRA_USER"
+        const val EXTRA_USER = "EXTRA_USER"
     }
 }

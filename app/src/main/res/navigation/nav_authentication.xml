@@ -19,17 +19,20 @@
         android:id="@+id/registerChoseTypeFragment"
         android:name="br.com.rorizinfo.cardFidelize.ui.features.authentication.fragment.RegisterChoseTypeFragment"
         android:label="RegisterChoseTypeFragment"
-        tools:layout="@layout/fragment_register_chose_type" >
+        tools:layout="@layout/fragment_register_chose_type">
         <action
-            android:id="@+id/action_registerChoseTypeFragment_to_registerNameUserFragment"
+            android:id="@+id/toClientRegister"
             app:destination="@id/registerNameUserFragment" />
+        <action
+            android:id="@+id/toComanyRegister"
+            app:destination="@id/registerNameCompanyFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/registerEmailFragment"
         android:name="br.com.rorizinfo.cardFidelize.ui.features.authentication.fragment.RegisterEmailFragment"
         android:label="RegisterEmailFragment"
-        tools:layout="@layout/fragment_register_email" >
+        tools:layout="@layout/fragment_register_email">
         <action
             android:id="@+id/toRegisterPassword"
             app:destination="@id/registerPasswordFragment2" />
@@ -41,7 +44,7 @@
         android:label="RegisterNameUserFragment"
         tools:layout="@layout/fragment_register_name_user">
         <action
-            android:id="@+id/action_registerNameUserFragment_to_homeUserActivity"
+            android:id="@+id/toHome"
             app:destination="@id/homeUserActivity" />
     </fragment>
 
@@ -49,7 +52,7 @@
         android:id="@+id/registerValidationEmailFragment"
         android:name="br.com.rorizinfo.cardFidelize.ui.features.authentication.fragment.RegisterValidationEmailFragment"
         android:label="RegisterValidationEmailFragment"
-        tools:layout="@layout/fragment_register_confirm_email" >
+        tools:layout="@layout/fragment_register_confirm_email">
         <action
             android:id="@+id/goToSelectType"
             app:destination="@id/registerChoseTypeFragment" />
@@ -74,9 +77,24 @@
         android:id="@+id/confirmRegisterPasswordFragment"
         android:name="br.com.rorizinfo.cardFidelize.ui.features.authentication.fragment.ConfirmRegisterPasswordFragment"
         android:label="ConfirmRegisterPasswordFragment"
-        tools:layout="@layout/fragment_register_confirm_password" >
+        tools:layout="@layout/fragment_register_confirm_password">
         <action
             android:id="@+id/toValidationEmail"
             app:destination="@id/registerValidationEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerNameCompanyFragment"
+        android:name="br.com.rorizinfo.cardFidelize.ui.features.authentication.fragment.RegisterNameCompanyFragment"
+        android:label="RegisterNameCompanyFragment"
+        tools:layout="@layout/fragment_register_name_company">
+        <action
+            android:id="@+id/toCnpj"
+            app:destination="@id/registerCnpjCompanyFrgament" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerCnpjCompanyFrgament"
+        android:name="br.com.rorizinfo.cardFidelize.ui.features.authentication.fragment.RegisterCnpjCompanyFrgament"
+        android:label="RegisterCnpjCompanyFrgament"
+        tools:layout="@layout/fragment_register_cnpj_company" >
     </fragment>
 </navigation>
