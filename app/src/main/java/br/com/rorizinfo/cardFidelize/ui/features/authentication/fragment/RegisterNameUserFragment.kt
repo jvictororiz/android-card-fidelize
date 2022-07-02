@@ -20,7 +20,7 @@ import org.koin.core.parameter.parametersOf
 class RegisterNameUserFragment : Fragment() {
     private lateinit var binding: FragmentRegisterNameUserBinding
     private val viewModel by viewModel<RegisterNameUserViewModel> {
-        parametersOf(arguments?.getString(EXTRA_USER))
+        parametersOf(arguments?.getParcelable(EXTRA_USER))
     }
     
     override fun onCreateView(
@@ -62,7 +62,7 @@ class RegisterNameUserFragment : Fragment() {
             when (event) {
                 NameUserEvent.GoToBack -> findNavController().popBackStack()
                 is NameUserEvent.GoToHome -> {
-                    findNavController().navigateWithAnim(R.id.registerNameUserFragment)
+                    findNavController().navigateWithAnim(R.id.toHome)
                 }
                 is NameUserEvent.OnCancel -> findNavController().popBackStack(R.id.loginFragment, false)
                 is NameUserEvent.AlertShowMessage -> binding.root.showMessage(event.message)
@@ -71,6 +71,6 @@ class RegisterNameUserFragment : Fragment() {
     }
     
     companion object {
-        private const val EXTRA_USER = "EXTRA_USER"
+        const val EXTRA_USER = "EXTRA_USER"
     }
 }

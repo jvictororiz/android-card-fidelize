@@ -28,23 +28,23 @@ class RegisterUserViewModel(
     private val localPreference: LocalPreference,
     private val context: Context
 ) : ViewModel() {
-
+    
     var stateLiveData = MultipleLiveState<RegisterUserState>()
     var eventLiveData = SingleLiveEvent<RegisterUserEvent>()
-
+    
     private val user = User()
-
-
+    
+    
     fun clearState() {
         stateLiveData = MultipleLiveState()
         eventLiveData = SingleLiveEvent()
     }
-
+    
     fun validateEmailField(email: String) {
         this.user.email = email
         updateState { it.copy(enableNextButton = validateEmailUseCase(email)) }
     }
-
+    
     fun validatePassword(password: String) {
         user.password = password
         val result = validatePasswordUseCase.validatePassword(password)
@@ -58,7 +58,7 @@ class RegisterUserViewModel(
             }
         }
     }
-
+    
     fun validateConfirmPassword(password: String) {
         val result = confirmPasswordUseCase.confirmPassword(
             currentPassword = user.password,
@@ -72,11 +72,11 @@ class RegisterUserViewModel(
             updateState { it.copy(errorField = result.exceptionOrNull()?.message) }
         }
     }
-
+    
     fun tapOnNext() {
         RegisterUserEvent.GoToNext.run()
     }
-
+    
     fun sendEmailVerification() = viewModelScope.launch {
         resetTime()
         val result = sendEmailVerificationUseCase()
@@ -90,7 +90,7 @@ class RegisterUserViewModel(
             ).run()
         }
     }
-
+    
     private fun resetTime() {
         val initValue = 30L
         updateState { it.copy(enableNextButton = false, countSendEmail = "30") }
@@ -110,7 +110,7 @@ class RegisterUserViewModel(
         if (verifyValidationAccountUseCase(user.email, user.password)) {
             localPreference.save(BasePreference.EmailUser, user.email)
             localPreference.save(BasePreference.PasswordUser, user.password)
-            RegisterUserEvent.GoToNext.run()
+            RegisterUserEvent.FinishRegisterUser(user).run()
         } else {
             RegisterUserEvent.ShowAlertMessage(context.getString(R.string.email_not_validate)).run()
         }

@@ -67,8 +67,10 @@ class RegisterValidationEmailFragment : Fragment() {
             when (event) {
                 is RegisterUserEvent.GoToBack -> findNavController().popBackStack()
                 is RegisterUserEvent.ShowAlertMessage -> binding.root.showMessage(event.message)
-                RegisterUserEvent.GoToNext -> {
-                    findNavController().navigateWithAnim(R.id.goToSelectType)
+                is RegisterUserEvent.FinishRegisterUser -> {
+                    findNavController().navigateWithAnim(R.id.goToSelectType, Bundle().apply {
+                        putParcelable(RegisterChoseTypeFragment.EXTRA_USER, event.user)
+                    })
                 }
                 RegisterUserEvent.OnCancel -> {
                     findNavController().popBackStack(R.id.loginFragment, false)
