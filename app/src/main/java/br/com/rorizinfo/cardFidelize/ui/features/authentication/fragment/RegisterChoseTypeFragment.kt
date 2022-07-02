@@ -51,7 +51,7 @@ class RegisterChoseTypeFragment : Fragment() {
         
         viewModel.eventLiveData.observe(viewLifecycleOwner) { event ->
             when (event) {
-                ChoseTypeEvent.GoToBack -> findNavController().popBackStack()
+                ChoseTypeEvent.GoToBack -> findNavController().popBackStack(R.id.loginFragment, false)
                 ChoseTypeEvent.GoToRegisterCompany -> TODO()
                 ChoseTypeEvent.GoToRegisterUser -> TODO()
             }

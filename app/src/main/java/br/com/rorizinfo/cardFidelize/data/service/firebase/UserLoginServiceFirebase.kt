@@ -6,6 +6,7 @@ import br.com.rorizinfo.cardFidelize.data.service.Constants
 import br.com.rorizinfo.cardFidelize.data.service.contract.UserLoginService
 import br.com.rorizinfo.cardFidelize.data.service.firebase.exception.AccountAlreadyExists
 import br.com.rorizinfo.cardFidelize.data.service.firebase.exception.AccountNotCreated
+import br.com.rorizinfo.cardFidelize.domain.model.User
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -18,6 +19,7 @@ class UserLoginServiceFirebase(
     private val firebaseDatabase: FirebaseDatabase,
     private val firebaseAuth: FirebaseAuth,
 ) : UserLoginService {
+    
     private val database by lazy { firebaseDatabase.getReference(Constants.TABLE_USERS) }
     private val actionCodeSettings = ActionCodeSettings.newBuilder()
         .setAndroidPackageName(BuildConfig.APPLICATION_ID, true, "1")

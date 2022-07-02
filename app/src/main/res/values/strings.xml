@@ -47,5 +47,6 @@
     <string name="success_send_email">E-mail enviado com sucesso, caso não encontre, cheque a caixa de SPAM</string>
     <string name="email_not_validate">Seu e-mail ainda não foi validado, click no link que enviamos para o seu e-mail.</string>
     <string name="authentication_error">Email e/ou senha inválido(s)</string>
+    <string name="message_error_register_name">Houve um erro ao tentar finalizar seu cadastro, por favor, tente novamente.</string>
     <string name="error_cnpj_lenght">"Você precisa cadastrar um cnpj válido para continuar "</string>
 </resources>

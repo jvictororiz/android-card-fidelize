@@ -4,7 +4,9 @@ import androidx.biometric.BiometricManager
 import br.com.rorizinfo.cardFidelize.data.preference.LocalPreference
 import br.com.rorizinfo.cardFidelize.data.repository.UserRepositoryImpl
 import br.com.rorizinfo.cardFidelize.data.repository.contract.UserRepository
+import br.com.rorizinfo.cardFidelize.data.service.contract.ClientService
 import br.com.rorizinfo.cardFidelize.data.service.contract.UserLoginService
+import br.com.rorizinfo.cardFidelize.data.service.firebase.ClientServiceFirebase
 import br.com.rorizinfo.cardFidelize.data.service.firebase.UserLoginServiceFirebase
 import br.com.rorizinfo.cardFidelize.domain.usecase.*
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.LoginViewModel
@@ -30,6 +32,7 @@ val modules = module {
     single { DoLoginUserCase(get()) }
     single { ValidateEmailUseCase() }
     single { ValidateNameUseCase() }
+    single { SaveOrUpdateClientUseCase(get()) }
     single { ValidatePasswordUseCase(get()) }
     single { ConfirmPasswordUseCase(get()) }
     single { ConfirmPasswordResetUseCase(get()) }
@@ -42,10 +45,11 @@ val modules = module {
     viewModel { LoginViewModel(get(), get(), get(), get()) }
     viewModel { RegisterChoseTypeViewModel() }
     viewModel { RegisterUserViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
-    viewModel { params -> RegisterNameUserViewModel(params.get(), get(), get()) }
+    viewModel { params -> RegisterNameUserViewModel(params.get(), get(), get(), get()) }
     
     //service
     single<UserLoginService> { UserLoginServiceFirebase(get(), get()) }
+    single<ClientService> { ClientServiceFirebase(get()) }
     
     //others
     single { LocalPreference(get()) }

@@ -12,7 +12,6 @@ fun RegisterUserResponse.toRegisterUser() = RegisterUser(
 
 fun User.toUserRequest() = RegisterUserRequest(
     id = id,
-    name = name,
     email = email,
     password = password
 )
