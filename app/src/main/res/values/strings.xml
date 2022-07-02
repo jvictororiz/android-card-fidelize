@@ -13,6 +13,8 @@
     <string name="example_email">Ex: teste@teste.com</string>
     <string name="register_user_email">Preencha seu e-mail:</string>
     <string name="register_user_name">Preencha com seu nome:</string>
+    <string name="register_company_name">Preencha com o nome da sua empresa:</string>
+    <string name="register_cnpj_company_name">Preencha com o CNPJ da sua empresa:</string>
     <string name="company">Empresa</string>
     <string name="client">Cliente</string>
     <string name="register_user_password">Crie uma <b><font color="#2196F3">senha</font></b>:</string>
@@ -21,6 +23,8 @@
     <string name="register_user_confirm_password">Confirme sua <b><font color="#2196F3">senha</font></b>:</string>
     <string name="example_password">******</string>
     <string name="example_name">Ex: João</string>
+    <string name="example_company_name">Ex: Padaria do João</string>
+    <string name="example_cnpj_name">Ex: 12345678900001</string>
     <string name="conclude">Concluir</string>
     <string name="register_user_confirm_email">Enviamos para o seu <b><font color="#2196F3">e-mail</font></b>, as instruções para <b><font color="#2196F3">validar a sua conta</font></b></string>
     <string name="example_code">123456</string>
@@ -43,4 +47,5 @@
     <string name="success_send_email">E-mail enviado com sucesso, caso não encontre, cheque a caixa de SPAM</string>
     <string name="email_not_validate">Seu e-mail ainda não foi validado, click no link que enviamos para o seu e-mail.</string>
     <string name="authentication_error">Email e/ou senha inválido(s)</string>
+    <string name="error_cnpj_lenght">"Você precisa cadastrar um cnpj válido para continuar "</string>
 </resources>
