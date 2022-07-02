@@ -37,6 +37,14 @@ class LoginFragment : Fragment() {
     }
     
     private fun setupListeners() {
+        
+        binding.btnLogin.setOnClickListener {
+            viewModel.doLogin(
+                binding.edtLogin.text.toString(),
+                binding.edtPassword.text.toString()
+            )
+        }
+        
         binding.btnBiometric.setOnClickListener {
             viewModel.tapOnBiometric()
         }
@@ -51,6 +59,7 @@ class LoginFragment : Fragment() {
             binding.labelBiometric.isVisible = state.hasBiometric
             binding.btnBiometric.isVisible = state.hasBiometric && !state.showLoading
             binding.pbLoading.isVisible = state.showLoading
+            binding.btnLogin.isVisible = !state.showLoading
         }
         
         viewModel.eventLiveData.observe(viewLifecycleOwner) { event ->
@@ -58,11 +67,10 @@ class LoginFragment : Fragment() {
                 is LoginEvent.DoLogin -> {
                 }
                 LoginEvent.GoToForgotPassword -> TODO()
-                LoginEvent.GoToHome -> TODO()
+                LoginEvent.GoToHome -> findNavController().navigateWithAnim(R.id.homeUserActivity)
                 LoginEvent.GoToRegister -> {
                     findNavController().navigateWithAnim(R.id.toRegisterEmailFragment)
                 }
-                LoginEvent.SuccessBiometric -> TODO()
                 LoginEvent.OpenDialogBiometric -> {
                     fingerprint.showDialogBiometric(
                         successCallBack = {
@@ -75,6 +83,9 @@ class LoginFragment : Fragment() {
                 }
                 is LoginEvent.ShowAlert -> {
                     binding.root.showMessage(event.messageError)
+                }
+                LoginEvent.GoToPendingRegister -> {
+                    findNavController().navigateWithAnim(R.id.registerValidationEmailFragment)
                 }
             }
         }

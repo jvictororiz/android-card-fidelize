@@ -4,7 +4,7 @@
     <string name="hint_login">Digite seu login</string>
     <string name="hint_password">Digite sua senha</string>
     <string name="login_enter">Entrar</string>
-    <string name="login_forgot_password">Esqueceu sua senha?\n clique aqui</string>
+    <string name="login_forgot_password">Esqueceu sua senha?\n clique aqui </string>
     <string name="login_authentication_biometric">Ou use a biometria</string>
     <string name="login_register_text">Não possui uma conta? <b><font color="#2196F3">Cadastre-se</font></b></string>
     <string name="text_chose_type_register">Selecione o tipo de conta que deseja criar:</string>
@@ -24,7 +24,7 @@
     <string name="conclude">Concluir</string>
     <string name="register_user_confirm_email">Enviamos para o seu <b><font color="#2196F3">e-mail</font></b>, as instruções para <b><font color="#2196F3">validar a sua conta</font></b></string>
     <string name="example_code">123456</string>
-    <string name="register_user_confirmed_email">Verificar confirmação</string>
+    <string name="register_user_confirmed_email">Verificado</string>
     <string name="message_title_biometric">Biometria</string>
     <string name="message_description_biometric_dialog">Use suas credenciais para entrar no aplicativo.</string>
     <string name="message_enter_login_password_not_save">Digitar senha</string>
@@ -40,4 +40,6 @@
     <string name="send_email"><![CDATA[<font color="#2196F3">Reenviar e-mail]]></string>
     <string name="fail_send_email">Houve uma falha ao enviar o e-mail, por favor, tente novamente.</string>
     <string name="success_send_email">E-mail enviado com sucesso, caso não encontre, cheque a caixa de SPAM</string>
+    <string name="email_not_validate">Seu e-mail ainda não foi validado, click no link que enviamos para o seu e-mail.</string>
+    <string name="authentication_error">Email e/ou senha inválido(s)</string>
 </resources>

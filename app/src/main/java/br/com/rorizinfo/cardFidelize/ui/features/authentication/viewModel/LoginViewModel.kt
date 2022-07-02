@@ -44,6 +44,17 @@ class LoginViewModel(
     fun doLogin(email: String, password: String) = viewModelScope.launch {
         updateState { it.copy(showLoading = true) }
         val resultLogin = loginUserCase(email, password)
+        if (resultLogin.isSuccess) {
+            if (resultLogin.getOrNull()?.isVerified == true) {
+                LoginEvent.GoToHome.run()
+            } else {
+                LoginEvent.GoToPendingRegister.run()
+            }
+        } else {
+            LoginEvent.ShowAlert(
+                context.getString(R.string.authentication_error)
+            ).run()
+        }
         updateState { it.copy(showLoading = false) }
     }
     
@@ -67,7 +78,7 @@ class LoginViewModel(
     }
     
     private fun LoginEvent.run() {
-        eventLiveData.setValue(this)
+        eventLiveData.value = this
     }
     
 }

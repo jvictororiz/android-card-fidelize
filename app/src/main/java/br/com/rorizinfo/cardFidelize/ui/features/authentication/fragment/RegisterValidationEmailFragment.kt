@@ -11,6 +11,7 @@ import br.com.rorizinfo.cardFidelize.R
 import br.com.rorizinfo.cardFidelize.databinding.FragmentRegisterConfirmEmailBinding
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterUserViewModel
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.registerUser.RegisterUserEvent
+import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
 import br.com.rorizinfo.cardFidelize.ui.util.setTextHtml
 import br.com.rorizinfo.cardFidelize.ui.util.showMessage
 import org.koin.androidx.viewmodel.ext.android.sharedStateViewModel
@@ -38,7 +39,7 @@ class RegisterValidationEmailFragment : Fragment() {
     
     private fun setupListeners() {
         binding.btnNext.setOnClickListener {
-            viewModel.tapOnNext()
+            viewModel.tapOnVerifyValidationEmail()
         }
         
         binding.btnCancel.setOnClickListener {
@@ -52,6 +53,8 @@ class RegisterValidationEmailFragment : Fragment() {
     
     private fun setupObservers() {
         viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
+            binding.btnNext.isVisible = !state.showLoading
+            binding.pbLoading.isVisible = state.showLoading
             binding.btnSendEmail.isEnabled = state.enableNextButton
             if (state.enableNextButton) {
                 binding.btnSendEmail.setTextHtml(getString(R.string.send_email))
@@ -65,7 +68,7 @@ class RegisterValidationEmailFragment : Fragment() {
                 is RegisterUserEvent.GoToBack -> findNavController().popBackStack()
                 is RegisterUserEvent.ShowAlertMessage -> binding.root.showMessage(event.message)
                 RegisterUserEvent.GoToNext -> {
-                    findNavController().navigate(R.id.goToSelectType)
+                    findNavController().navigateWithAnim(R.id.goToSelectType)
                 }
                 RegisterUserEvent.OnCancel -> {
                     findNavController().popBackStack(R.id.loginFragment, false)

@@ -5,6 +5,8 @@ import android.os.CountDownTimer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.rorizinfo.cardFidelize.R
+import br.com.rorizinfo.cardFidelize.data.preference.BasePreference
+import br.com.rorizinfo.cardFidelize.data.preference.LocalPreference
 import br.com.rorizinfo.cardFidelize.data.service.firebase.exception.AccountAlreadyExists
 import br.com.rorizinfo.cardFidelize.domain.model.User
 import br.com.rorizinfo.cardFidelize.domain.usecase.*
@@ -22,6 +24,8 @@ class RegisterUserViewModel(
     private val confirmPasswordUseCase: ConfirmPasswordUseCase,
     private val saveUserUseCase: SaveUserUseCase,
     private val sendEmailVerificationUseCase: SendEmailVerificationUseCase,
+    private val verifyValidationAccountUseCase: VerifyValidationAccountUseCase,
+    private val localPreference: LocalPreference,
     private val context: Context
 ) : ViewModel() {
     
@@ -75,12 +79,12 @@ class RegisterUserViewModel(
     
     fun sendEmailVerification() = viewModelScope.launch {
         resetTime()
-       val result = sendEmailVerificationUseCase()
-        if(result.isSuccess){
+        val result = sendEmailVerificationUseCase()
+        if (result.isSuccess) {
             RegisterUserEvent.ShowAlertMessage(
                 context.getString(R.string.success_send_email)
             ).run()
-        }else{
+        } else {
             RegisterUserEvent.ShowAlertMessage(
                 context.getString(R.string.fail_send_email)
             ).run()
@@ -89,16 +93,28 @@ class RegisterUserViewModel(
     
     private fun resetTime() {
         val initValue = 30L
-        updateState { it.copy(enableNextButton = false, countSendEmail = "30" ) }
+        updateState { it.copy(enableNextButton = false, countSendEmail = "30") }
         object : CountDownTimer(initValue * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                updateState { it.copy(countSendEmail = (millisUntilFinished / 1000).toString() ) }
+                updateState { it.copy(countSendEmail = (millisUntilFinished / 1000).toString()) }
             }
-        
+            
             override fun onFinish() {
-                updateState { it.copy(enableNextButton = true ) }
+                updateState { it.copy(enableNextButton = true) }
             }
         }.start()
+    }
+    
+    fun tapOnVerifyValidationEmail() = viewModelScope.launch {
+        updateState { it.copy(showLoading = true) }
+        if (verifyValidationAccountUseCase(user.email, user.password)) {
+            localPreference.save(BasePreference.EmailUser, user.email)
+            localPreference.save(BasePreference.PasswordUser, user.password)
+            RegisterUserEvent.GoToNext.run()
+        } else {
+            RegisterUserEvent.ShowAlertMessage(context.getString(R.string.email_not_validate)).run()
+        }
+        updateState { it.copy(showLoading = false) }
     }
     
     fun tapOnNextConfirmRegisterPassword() = viewModelScope.launch {
@@ -127,7 +143,7 @@ class RegisterUserViewModel(
     }
     
     fun tapOnCancel() {
-        RegisterUserEvent.OnCancel
+        RegisterUserEvent.OnCancel.run()
     }
     
     fun tapOnBack() {

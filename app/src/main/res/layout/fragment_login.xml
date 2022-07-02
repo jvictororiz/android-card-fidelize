@@ -92,6 +92,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
 
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_large"
+            android:indeterminateTint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputPassword"/>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnForgotPassword"
             style="@style/Widget.AppCompat.Button.Borderless"
@@ -130,14 +142,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/labelBiometric" />
-
-        <ProgressBar
-            android:id="@+id/pbLoading"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelBiometric"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
 
         <androidx.appcompat.widget.AppCompatButton
