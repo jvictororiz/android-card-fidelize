@@ -10,7 +10,7 @@
     <string name="text_chose_type_register">Selecione o tipo de conta que deseja criar:</string>
     <string name="next">Próximo</string>
     <string name="cancel">Cancelar</string>
-    <string name="example_email">teste@teste.com</string>
+    <string name="example_email">Ex: teste@teste.com</string>
     <string name="register_user_email">Preencha seu e-mail:</string>
     <string name="register_user_name">Preencha com seu nome:</string>
     <string name="company">Empresa</string>
@@ -36,4 +36,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="registration_confirm_register_password_error">Houve um erro ao registrar sua senha , por favor tente novamente!</string>
+    <string name="time_send_email"><![CDATA[Reenviar em <br> <font color="#2196F3">%s segundos</font></br>]]></string>
+    <string name="send_email"><![CDATA[<font color="#2196F3">Reenviar e-mail]]></string>
+    <string name="fail_send_email">Houve uma falha ao enviar o e-mail, por favor, tente novamente.</string>
+    <string name="success_send_email">E-mail enviado com sucesso, caso não encontre, cheque a caixa de SPAM</string>
 </resources>

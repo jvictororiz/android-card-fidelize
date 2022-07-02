@@ -4,11 +4,14 @@ import br.com.rorizinfo.cardFidelize.data.model.RegisterUserRequest
 import br.com.rorizinfo.cardFidelize.data.model.RegisterUserResponse
 import br.com.rorizinfo.cardFidelize.data.service.Constants
 import br.com.rorizinfo.cardFidelize.data.service.contract.UserLoginService
+import br.com.rorizinfo.cardFidelize.data.service.firebase.exception.AccountAlreadyExists
 import br.com.rorizinfo.cardFidelize.data.service.firebase.exception.AccountNotCreated
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.database.BuildConfig
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 
 class UserLoginServiceFirebase(
@@ -25,11 +28,12 @@ class UserLoginServiceFirebase(
     override suspend fun saveUser(user: RegisterUserRequest): Result<RegisterUserResponse> {
         return try {
             val resultUser = firebaseAuth.createUserWithEmailAndPassword(user.email, user.password).await()
-            val idUser = database.push().key
-            database.setValue(idUser, user.apply { id = idUser ?: "" }).await()
+            val idUser = database.push().key?:""
+            database.child(idUser).setValue(user.apply { id = idUser }).await()
             Result.success(RegisterUserResponse(resultUser.user?.isEmailVerified == true, user.email))
         } catch (exception: Exception) {
-            Result.failure(exception)
+            if (exception is FirebaseAuthUserCollisionException) Result.failure(AccountAlreadyExists())
+            else Result.failure(exception)
         }
     }
     
@@ -49,9 +53,10 @@ class UserLoginServiceFirebase(
     override suspend fun sendEmailVerification(): Result<Void?> {
         return try {
             val currentUser = firebaseAuth.currentUser ?: return Result.failure(AccountNotCreated())
-            currentUser.sendEmailVerification(actionCodeSettings).await()
+            currentUser.sendEmailVerification().await()
             Result.success(null)
         } catch (exception: Exception) {
+            
             Result.failure(exception)
         }
     }

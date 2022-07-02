@@ -7,10 +7,14 @@ import java.lang.Exception
 class ValidatePasswordUseCase(private val context: Context) {
 
     fun validatePassword(password: String): Result<Any?> {
-        return if (password.isNotEmpty()) {
-            Result.failure<String>(Exception(context.getString(R.string.empty_password_error)))
-        } else if (password.length != 5) {
-            Result.failure<Any>(Exception(context.getString(R.string.length_password_error)))
-        } else Result.success(null)
+        return when {
+            password.isEmpty() -> {
+                Result.failure<String>(Exception(context.getString(R.string.empty_password_error)))
+            }
+            password.length < 5 -> {
+                Result.failure<Any>(Exception(context.getString(R.string.length_password_error)))
+            }
+            else -> Result.success(null)
+        }
     }
 }
