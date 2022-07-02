@@ -2,11 +2,17 @@ package br.com.rorizinfo.cardFidelize.di
 
 import androidx.biometric.BiometricManager
 import br.com.rorizinfo.cardFidelize.data.preference.LocalPreference
+import br.com.rorizinfo.cardFidelize.data.repository.ClientRepositoryImpl
+import br.com.rorizinfo.cardFidelize.data.repository.CompanyRepositoryImpl
 import br.com.rorizinfo.cardFidelize.data.repository.UserRepositoryImpl
+import br.com.rorizinfo.cardFidelize.data.repository.contract.ClientRepository
+import br.com.rorizinfo.cardFidelize.data.repository.contract.CompanyRepository
 import br.com.rorizinfo.cardFidelize.data.repository.contract.UserRepository
 import br.com.rorizinfo.cardFidelize.data.service.contract.ClientService
+import br.com.rorizinfo.cardFidelize.data.service.contract.CompanyService
 import br.com.rorizinfo.cardFidelize.data.service.contract.UserLoginService
 import br.com.rorizinfo.cardFidelize.data.service.firebase.ClientServiceFirebase
+import br.com.rorizinfo.cardFidelize.data.service.firebase.CompanyServiceFirebase
 import br.com.rorizinfo.cardFidelize.data.service.firebase.UserLoginServiceFirebase
 import br.com.rorizinfo.cardFidelize.domain.usecase.*
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.LoginViewModel
@@ -28,6 +34,8 @@ val modules = module {
 
     //repository
     single<UserRepository> { UserRepositoryImpl(get()) }
+    single<CompanyRepository> { CompanyRepositoryImpl(get()) }
+    single<ClientRepository> { ClientRepositoryImpl(get()) }
 
     //usecase
     single { DoLoginUserCase(get()) }
@@ -43,6 +51,7 @@ val modules = module {
     single { VerifyValidationAccountUseCase(get()) }
     single { ValidateNameCompanyUseCase(get()) }
     single { ValidateCnpjCompanyUseCase(get()) }
+    single { SaveOrUpdateCompanyUseCase(get()) }
 
     //viewmodel
     viewModel { LoginViewModel(get(), get(), get(), get()) }
@@ -66,6 +75,8 @@ val modules = module {
     //service
     single<UserLoginService> { UserLoginServiceFirebase(get(), get()) }
     single<ClientService> { ClientServiceFirebase(get()) }
+    single<CompanyService> { CompanyServiceFirebase(get()) }
+
 
     //others
     single { LocalPreference(get()) }
