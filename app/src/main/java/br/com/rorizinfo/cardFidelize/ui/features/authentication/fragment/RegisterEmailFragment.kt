@@ -13,14 +13,16 @@ import br.com.rorizinfo.cardFidelize.databinding.FragmentRegisterEmailBinding
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterUserViewModel
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.registerUser.RegisterUserEvent
 import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
+import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoard
+import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoardView
 import br.com.rorizinfo.cardFidelize.ui.util.showMessage
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class RegisterEmailFragment : Fragment() {
     private lateinit var binding: FragmentRegisterEmailBinding
     private val viewModel by sharedViewModel<RegisterUserViewModel>()
-    
-    
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,7 +38,17 @@ class RegisterEmailFragment : Fragment() {
         setupObservers()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.edtLogin.showKeyBoard()
+    }
+
     private fun setupListeners() {
+        binding.root.setOnClickListener {
+            binding.root.showKeyBoardView(binding.edtLogin)
+        }
+
         binding.edtLogin.addTextChangedListener {
             viewModel.validateEmailField(it.toString())
         }

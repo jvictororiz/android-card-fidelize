@@ -13,13 +13,15 @@ import br.com.rorizinfo.cardFidelize.databinding.FragmentRegisterConfirmPassword
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterUserViewModel
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.registerUser.RegisterUserEvent
 import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
+import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoard
+import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoardView
 import br.com.rorizinfo.cardFidelize.ui.util.showMessage
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ConfirmRegisterPasswordFragment : Fragment() {
     private lateinit var binding: FragmentRegisterConfirmPasswordBinding
     private val viewModel by sharedViewModel<RegisterUserViewModel>()
-    
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,40 +29,48 @@ class ConfirmRegisterPasswordFragment : Fragment() {
         binding = FragmentRegisterConfirmPasswordBinding.inflate(inflater, container, false)
         return binding.root
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.clearState()
         setupListeners()
         setupObservers()
     }
-    
+
+    override fun onResume() {
+        super.onResume()
+        binding.edtPassword.showKeyBoard()
+    }
+
     private fun setupListeners() {
+        binding.root.setOnClickListener {
+            binding.root.showKeyBoardView(binding.edtPassword)
+        }
         binding.edtPassword.addTextChangedListener {
             viewModel.validateConfirmPassword(it.toString())
         }
-        
+
         binding.btnNext.setOnClickListener {
             viewModel.tapOnNextConfirmRegisterPassword()
         }
-        
+
         binding.btnBack.setOnClickListener {
             viewModel.tapOnBack()
         }
-        
+
         binding.btnCancel.setOnClickListener {
             viewModel.tapOnCancel()
         }
     }
-    
+
     private fun setupObservers() {
         viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
             binding.btnNext.isEnabled = state.enableNextButton
             binding.btnNext.isVisible = !state.showLoading
             binding.pbLoading.isVisible = state.showLoading
-            binding.edtPassword.error = state.errorField
+            binding.tvErrorPassword.text = state.errorField
         }
-        
+
         viewModel.eventLiveData.observe(viewLifecycleOwner) { event ->
             when (event) {
                 is RegisterUserEvent.GoToBack -> findNavController().popBackStack()
@@ -68,9 +78,12 @@ class ConfirmRegisterPasswordFragment : Fragment() {
                     findNavController().navigateWithAnim(R.id.toValidationEmail)
                 }
                 is RegisterUserEvent.ShowAlertMessage -> binding.root.showMessage(event.message)
-                RegisterUserEvent.OnCancel -> findNavController().popBackStack(R.id.loginFragment, false)
+                is RegisterUserEvent.OnCancel -> findNavController().popBackStack(
+                    R.id.loginFragment,
+                    false
+                )
             }
         }
     }
-    
+
 }
