@@ -24,23 +24,23 @@ class RegisterUserViewModel(
     private val sendEmailVerificationUseCase: SendEmailVerificationUseCase,
     private val context: Context
 ) : ViewModel() {
-    
+
     var stateLiveData = MultipleLiveState<RegisterUserState>()
     var eventLiveData = SingleLiveEvent<RegisterUserEvent>()
-    
+
     private val user = User()
-    
-    
+
+
     fun clearState() {
         stateLiveData = MultipleLiveState()
         eventLiveData = SingleLiveEvent()
     }
-    
+
     fun validateEmailField(email: String) {
         this.user.email = email
         updateState { it.copy(enableNextButton = validateEmailUseCase(email)) }
     }
-    
+
     fun validatePassword(password: String) {
         user.password = password
         val result = validatePasswordUseCase.validatePassword(password)
@@ -54,7 +54,7 @@ class RegisterUserViewModel(
             }
         }
     }
-    
+
     fun validateConfirmPassword(password: String) {
         val result = confirmPasswordUseCase.confirmPassword(
             currentPassword = user.password,
@@ -68,39 +68,39 @@ class RegisterUserViewModel(
             updateState { it.copy(errorField = result.exceptionOrNull()?.message) }
         }
     }
-    
+
     fun tapOnNext() {
         RegisterUserEvent.GoToNext.run()
     }
-    
+
     fun sendEmailVerification() = viewModelScope.launch {
         resetTime()
-       val result = sendEmailVerificationUseCase()
-        if(result.isSuccess){
+        val result = sendEmailVerificationUseCase()
+        if (result.isSuccess) {
             RegisterUserEvent.ShowAlertMessage(
                 context.getString(R.string.success_send_email)
             ).run()
-        }else{
+        } else {
             RegisterUserEvent.ShowAlertMessage(
                 context.getString(R.string.fail_send_email)
             ).run()
         }
     }
-    
+
     private fun resetTime() {
         val initValue = 30L
-        updateState { it.copy(enableNextButton = false, countSendEmail = "30" ) }
+        updateState { it.copy(enableNextButton = false, countSendEmail = "30") }
         object : CountDownTimer(initValue * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                updateState { it.copy(countSendEmail = (millisUntilFinished / 1000).toString() ) }
+                updateState { it.copy(countSendEmail = (millisUntilFinished / 1000).toString()) }
             }
-        
+
             override fun onFinish() {
-                updateState { it.copy(enableNextButton = true ) }
+                updateState { it.copy(enableNextButton = true) }
             }
         }.start()
     }
-    
+
     fun tapOnNextConfirmRegisterPassword() = viewModelScope.launch {
         updateState { it.copy(showLoading = true) }
         val result = saveUserUseCase(user)
@@ -125,15 +125,15 @@ class RegisterUserViewModel(
         }
         updateState { it.copy(showLoading = false) }
     }
-    
+
     fun tapOnCancel() {
-        RegisterUserEvent.OnCancel
+        RegisterUserEvent.OnCancel.run()
     }
-    
+
     fun tapOnBack() {
         RegisterUserEvent.GoToBack.run()
     }
-    
+
     fun tapOnNextEmail() = viewModelScope.launch {
         updateState { it.copy(showLoading = true) }
         val emailAlreadyExists = verifyEmailAlreadyExistsUseCase(user.email)
@@ -144,11 +144,11 @@ class RegisterUserViewModel(
         }
         updateState { it.copy(showLoading = false) }
     }
-    
+
     private fun updateState(newStateRegister: (RegisterUserState) -> RegisterUserState) {
         stateLiveData.setValue(newStateRegister(stateLiveData.value ?: RegisterUserState()))
     }
-    
+
     private fun RegisterUserEvent.run() {
         eventLiveData.value = this
     }
