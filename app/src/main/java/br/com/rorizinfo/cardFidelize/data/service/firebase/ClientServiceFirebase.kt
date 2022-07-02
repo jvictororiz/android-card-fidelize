@@ -25,7 +25,7 @@ class ClientServiceFirebase(
     
     override suspend fun saveOrUpdateClient(clientRequest: ClientRequest): Result<Void?> {
         return try {
-            database.child(clientRequest.userRequest.id).setValue(clientRequest).await()
+            database.child(clientRequest.idClient).setValue(clientRequest).await()
             Result.success(null)
         } catch (exception: Exception) {
             if (exception is FirebaseAuthUserCollisionException) Result.failure(AccountAlreadyExists())

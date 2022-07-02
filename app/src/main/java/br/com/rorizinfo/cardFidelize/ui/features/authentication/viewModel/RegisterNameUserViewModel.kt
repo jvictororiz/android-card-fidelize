@@ -20,17 +20,17 @@ class RegisterNameUserViewModel(
     private val saveOrUpdateClientUseCase: SaveOrUpdateClientUseCase,
     private val context: Context
 ) : ViewModel() {
-
-    private val client = Client(user)
-
+    
+    private val client = Client(user.id, user.email)
+    
     val stateLiveData = MultipleLiveState<NameUserState>()
     val eventLiveData = SingleLiveEvent<NameUserEvent>()
-
+    
     fun validateEmailField(name: String) {
         client.name = name
         updateState { it.copy(enableButton = validateNameUseCase(name)) }
     }
-
+    
     fun tapOnNext() = viewModelScope.launch {
         updateState { it.copy(showLoading = true) }
         val result = saveOrUpdateClientUseCase(client)
@@ -42,17 +42,17 @@ class RegisterNameUserViewModel(
             ).run()
         }
         updateState { it.copy(showLoading = false) }
-
+        
     }
-
+    
     fun tapOnCancel() {
         NameUserEvent.OnCancel.run()
     }
-
+    
     private fun updateState(newState: (NameUserState) -> NameUserState) {
         stateLiveData.setValue(newState(stateLiveData.value ?: NameUserState()))
     }
-
+    
     private fun NameUserEvent.run() {
         eventLiveData.value = this
     }

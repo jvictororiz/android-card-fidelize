@@ -10,4 +10,5 @@ interface UserLoginService {
     suspend fun doLogin(email: String, password: String): Result<RegisterUserResponse>
     suspend fun verifyConfirmationAccount(email: String, password: String): Boolean
     suspend fun verifyEmailAlreadyExists(email: String): Boolean
+    suspend fun sendPasswordResetEmail(email: String): Result<Void?>
 }

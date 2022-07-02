@@ -6,6 +6,7 @@ import br.com.rorizinfo.cardFidelize.data.repository.mapper.toUserRequest
 import br.com.rorizinfo.cardFidelize.data.service.contract.UserLoginService
 import br.com.rorizinfo.cardFidelize.domain.model.RegisterUser
 import br.com.rorizinfo.cardFidelize.domain.model.User
+import kotlinx.coroutines.tasks.await
 
 class UserRepositoryImpl(
     private val loginService: UserLoginService,
@@ -20,12 +21,12 @@ class UserRepositoryImpl(
         return loginService.sendEmailVerification()
     }
     
-    override suspend fun confirmPasswordReset(code: String, email: String): Result<Void?> {
-        return loginService.confirmPasswordReset(code, email)
-    }
-    
     override suspend fun verifyConfirmationAccount(email: String, password: String): Boolean {
         return loginService.verifyConfirmationAccount(email, password)
+    }
+    
+    override suspend fun sendPasswordResetEmail(email: String): Result<Void?> {
+        return loginService.sendPasswordResetEmail(email)
     }
     
     override suspend fun verifyEmailAlreadyExists(email: String): Boolean {

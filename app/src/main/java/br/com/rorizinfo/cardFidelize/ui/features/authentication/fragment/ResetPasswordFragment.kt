@@ -9,69 +9,72 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import br.com.rorizinfo.cardFidelize.R
-import br.com.rorizinfo.cardFidelize.databinding.FragmentRegisterNameUserBinding
-import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterNameUserViewModel
-import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.nameUser.NameUserEvent
+import br.com.rorizinfo.cardFidelize.databinding.FragmentRegisterEmailBinding
+import br.com.rorizinfo.cardFidelize.databinding.FragmentResetPasswordBinding
+import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterUserViewModel
+import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.ResetPasswordViewModel
+import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.registerUser.RegisterUserEvent
+import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.resetPassword.ResetPasswordEvent
 import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
+import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoard
+import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoardView
 import br.com.rorizinfo.cardFidelize.ui.util.showMessage
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.core.parameter.parametersOf
 
-class RegisterNameUserFragment : Fragment() {
-    private lateinit var binding: FragmentRegisterNameUserBinding
-    private val viewModel by sharedViewModel<RegisterNameUserViewModel> {
-        parametersOf(arguments?.getParcelable(EXTRA_USER))
-    }
-    
+class ResetPasswordFragment : Fragment() {
+    private lateinit var binding: FragmentResetPasswordBinding
+    private val viewModel by sharedViewModel<ResetPasswordViewModel>()
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRegisterNameUserBinding.inflate(inflater, container, false)
+        binding = FragmentResetPasswordBinding.inflate(inflater, container, false)
         return binding.root
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
     }
-    
+
+    override fun onResume() {
+        super.onResume()
+        binding.edtLogin.showKeyBoard()
+    }
+
     private fun setupListeners() {
-        binding.edtName.addTextChangedListener {
+        binding.root.setOnClickListener {
+            binding.root.showKeyBoardView(binding.edtLogin)
+        }
+
+        binding.edtLogin.addTextChangedListener {
             viewModel.validateEmailField(it.toString())
         }
-        
+
         binding.btnNext.setOnClickListener {
             viewModel.tapOnNext()
         }
-        
+
         binding.btnCancel.setOnClickListener {
-            viewModel.tapOnCancel()
+            viewModel.tapOnBack()
         }
     }
-    
+
     private fun setupObservers() {
         viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
-            binding.btnNext.isEnabled = state.enableButton
+            binding.btnNext.isEnabled = state.enableNextButton
             binding.btnNext.isVisible = !state.showLoading
             binding.pbLoading.isVisible = state.showLoading
         }
-        
+
         viewModel.eventLiveData.observe(viewLifecycleOwner) { event ->
             when (event) {
-                NameUserEvent.GoToBack -> findNavController().popBackStack()
-                is NameUserEvent.GoToHome -> {
-                    findNavController().navigateWithAnim(R.id.toHome)
-                    requireActivity().finish()
-                }
-                is NameUserEvent.OnCancel -> findNavController().popBackStack(R.id.loginFragment, false)
-                is NameUserEvent.AlertShowMessage -> binding.root.showMessage(event.message)
+                is ResetPasswordEvent.GoToBack -> findNavController().popBackStack()
+                is ResetPasswordEvent.ShowAlertMessage -> binding.root.showMessage(event.message)
             }
         }
-    }
-    
-    companion object {
-        const val EXTRA_USER = "EXTRA_USER"
     }
 }

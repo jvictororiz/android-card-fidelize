@@ -15,11 +15,7 @@ import br.com.rorizinfo.cardFidelize.data.service.firebase.ClientServiceFirebase
 import br.com.rorizinfo.cardFidelize.data.service.firebase.CompanyServiceFirebase
 import br.com.rorizinfo.cardFidelize.data.service.firebase.UserLoginServiceFirebase
 import br.com.rorizinfo.cardFidelize.domain.usecase.*
-import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.LoginViewModel
-import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterChoseTypeViewModel
-import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterCompanyViewModel
-import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterNameUserViewModel
-import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterUserViewModel
+import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -44,17 +40,18 @@ val modules = module {
     single { SaveOrUpdateClientUseCase(get()) }
     single { ValidatePasswordUseCase(get()) }
     single { ConfirmPasswordUseCase(get()) }
-    single { ConfirmPasswordResetUseCase(get()) }
     single { VerifyEmailAlreadyExistsUseCase(get()) }
     single { SendEmailVerificationUseCase(get()) }
     single { SaveUserUseCase(get()) }
     single { VerifyValidationAccountUseCase(get()) }
-    single { ValidateNameCompanyUseCase(get()) }
+    single { ValidateNameCompanyUseCase() }
     single { ValidateCnpjCompanyUseCase() }
     single { SaveOrUpdateCompanyUseCase(get()) }
+    single { SendResetPasswordUseCase(get()) }
 
     //viewmodel
     viewModel { LoginViewModel(get(), get(), get(), get()) }
+    viewModel { ResetPasswordViewModel(get(), get(), get()) }
     viewModel { params -> RegisterChoseTypeViewModel(params.get()) }
     viewModel { params -> RegisterCompanyViewModel(params.get(), get(), get(), get(), get()) }
     viewModel {

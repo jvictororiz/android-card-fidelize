@@ -13,7 +13,16 @@
         <action
             android:id="@+id/toRegisterEmailFragment"
             app:destination="@id/registerEmailFragment" />
+        <action
+            android:id="@+id/toResetPassword"
+            app:destination="@id/resetPasswordFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        tools:layout="@layout/fragment_reset_password"
+        android:name="br.com.rorizinfo.cardFidelize.ui.features.authentication.fragment.ResetPasswordFragment"
+        android:label="ResetPasswordFragment" />
 
     <fragment
         android:id="@+id/registerChoseTypeFragment"
@@ -106,4 +115,5 @@
         tools:layout="@layout/activity_company_home"
         android:name="br.com.rorizinfo.cardFidelize.ui.features.home.company.HomeCompanyActivity"
         android:label="HomeCompanyActivity" />
+
 </navigation>

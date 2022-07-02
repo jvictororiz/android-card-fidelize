@@ -45,6 +45,10 @@ class LoginFragment : Fragment() {
             )
         }
         
+        binding.btnForgotPassword.setOnClickListener {
+            viewModel.tapOnForgotPassword()
+        }
+        
         binding.btnBiometric.setOnClickListener {
             viewModel.tapOnBiometric()
         }
@@ -66,7 +70,9 @@ class LoginFragment : Fragment() {
             when (event) {
                 is LoginEvent.DoLogin -> {
                 }
-                LoginEvent.GoToForgotPassword -> TODO()
+                LoginEvent.GoToForgotPassword -> {
+                    findNavController().navigateWithAnim(R.id.toResetPassword)
+                }
                 LoginEvent.GoToHome -> findNavController().navigateWithAnim(R.id.homeUserActivity)
                 LoginEvent.GoToRegister -> {
                     findNavController().navigateWithAnim(R.id.toRegisterEmailFragment)
@@ -86,6 +92,10 @@ class LoginFragment : Fragment() {
                 }
                 LoginEvent.GoToPendingRegister -> {
                     findNavController().navigateWithAnim(R.id.registerValidationEmailFragment)
+                }
+                LoginEvent.ClearFields -> {
+                    binding.edtLogin.setText("")
+                    binding.edtPassword.setText("")
                 }
             }
         }

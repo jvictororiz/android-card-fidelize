@@ -35,9 +35,9 @@ class RegisterNameCompanyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.clearState()
         setupListeners()
         setupObservers()
-        viewModel.clearState()
     }
 
     override fun onResume() {

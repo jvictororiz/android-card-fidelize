@@ -50,6 +50,7 @@
         tools:text="Reenviar em\n 5 segundos" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_large"
@@ -58,6 +59,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_large"
+        android:gravity="center"
+        android:textColor="@color/yellow"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgSend"
+        tools:text="Não foi possível enviar o e-mail" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNext"
@@ -73,14 +87,14 @@
 
     <ProgressBar
         android:id="@+id/pbLoading"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_default"
         android:layout_marginTop="@dimen/margin_large"
         android:layout_marginBottom="@dimen/margin_default"
-        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

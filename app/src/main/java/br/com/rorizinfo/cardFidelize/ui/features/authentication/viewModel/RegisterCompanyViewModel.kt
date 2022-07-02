@@ -17,17 +17,17 @@ import kotlinx.coroutines.launch
 
 class RegisterCompanyViewModel(
     user: User,
-    val validateCnpjCompanyUseCase: ValidateCnpjCompanyUseCase,
-    val validateNameCompanyUseCase: ValidateNameCompanyUseCase,
-    val saveOrUpdateCompanyUseCase: SaveOrUpdateCompanyUseCase,
+    private val validateCnpjCompanyUseCase: ValidateCnpjCompanyUseCase,
+    private val validateNameCompanyUseCase: ValidateNameCompanyUseCase,
+    private val saveOrUpdateCompanyUseCase: SaveOrUpdateCompanyUseCase,
     val context: Context
 ) : ViewModel() {
     
-    private var company = Company(user)
+    private var company = Company(user.id, user.email)
     
     var stateLiveData = MultipleLiveState<CompanyState>()
     var eventLiveData = SingleLiveEvent<CompanyEvent>()
-
+    
     fun clearState() {
         stateLiveData = MultipleLiveState()
         eventLiveData = SingleLiveEvent()
@@ -37,12 +37,12 @@ class RegisterCompanyViewModel(
         this.company.cnpj = cnpj
         updateState { it.copy(enableButton = validateCnpjCompanyUseCase(cnpj)) }
     }
-
+    
     fun validateNameField(nameCompany: String) {
         this.company.nameCompany = nameCompany
         updateState { it.copy(enableButton = validateNameCompanyUseCase(nameCompany)) }
     }
-
+    
     fun tapOnNext() = viewModelScope.launch {
         updateState { it.copy(showLoading = true) }
         val result = saveOrUpdateCompanyUseCase.invoke(company)
@@ -55,15 +55,15 @@ class RegisterCompanyViewModel(
         }
         updateState { it.copy(showLoading = false) }
     }
-
+    
     fun tapOnCancel() {
         CompanyEvent.OnCancel
     }
-
+    
     private fun updateState(newState: (CompanyState) -> CompanyState) {
         stateLiveData.setValue(newState(stateLiveData.value ?: CompanyState()))
     }
-
+    
     private fun CompanyEvent.run() {
         eventLiveData.value = this
     }

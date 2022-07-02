@@ -5,6 +5,7 @@ import br.com.rorizinfo.cardFidelize.domain.model.Client
 
 
 fun Client.toClientRequest() = ClientRequest(
-    userRequest = user.toUserRequest(),
-    name = name
+    idClient = idClient,
+    name = name,
+    emailClient = emailUser
 )

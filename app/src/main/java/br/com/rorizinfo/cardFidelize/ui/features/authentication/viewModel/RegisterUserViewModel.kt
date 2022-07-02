@@ -80,11 +80,7 @@ class RegisterUserViewModel(
     fun sendEmailVerification() = viewModelScope.launch {
         resetTime()
         val result = sendEmailVerificationUseCase()
-        if (result.isSuccess) {
-            RegisterUserEvent.ShowAlertMessage(
-                context.getString(R.string.success_send_email)
-            ).run()
-        } else {
+        if (result.isFailure) {
             RegisterUserEvent.ShowAlertMessage(
                 context.getString(R.string.fail_send_email)
             ).run()

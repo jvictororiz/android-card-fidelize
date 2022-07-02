@@ -41,6 +41,10 @@ class LoginViewModel(
         LoginEvent.OpenDialogBiometric.run()
     }
     
+    fun tapOnForgotPassword() {
+        LoginEvent.GoToForgotPassword.run()
+    }
+    
     fun doLogin(email: String, password: String) = viewModelScope.launch {
         updateState { it.copy(showLoading = true) }
         val resultLogin = loginUserCase(email, password)
@@ -50,6 +54,7 @@ class LoginViewModel(
             } else {
                 LoginEvent.GoToPendingRegister.run()
             }
+            LoginEvent.ClearFields.run()
         } else {
             LoginEvent.ShowAlert(
                 context.getString(R.string.authentication_error)

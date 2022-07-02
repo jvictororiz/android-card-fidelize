@@ -21,11 +21,6 @@ class UserLoginServiceFirebase(
 ) : UserLoginService {
     
     private val database by lazy { firebaseDatabase.getReference(Constants.TABLE_USERS) }
-    private val actionCodeSettings = ActionCodeSettings.newBuilder()
-        .setAndroidPackageName(BuildConfig.APPLICATION_ID, true, "1")
-        .setUrl("")
-        .setHandleCodeInApp(true)
-        .build()
     
     override suspend fun saveUser(user: RegisterUserRequest): Result<RegisterUserResponse> {
         return try {
@@ -71,9 +66,9 @@ class UserLoginServiceFirebase(
         }
     }
     
-    suspend fun sendPasswordResetEmail(email: String): Result<Void?> {
+    override suspend fun sendPasswordResetEmail(email: String): Result<Void?> {
         return try {
-            firebaseAuth.sendPasswordResetEmail(email, actionCodeSettings).await()
+            firebaseAuth.sendPasswordResetEmail(email).await()
             Result.success(null)
         } catch (exception: Exception) {
             Result.failure(exception)

@@ -16,7 +16,7 @@ class CompanyServiceFirebase(
     
     override suspend fun saveOrUpdateCompany(companyRequest: CompanyRequest): Result<Void?> {
         return try {
-            database.child(companyRequest.userRequest.id).setValue(companyRequest).await()
+            database.child(companyRequest.userId).setValue(companyRequest).await()
             Result.success(null)
         } catch (exception: Exception) {
             if (exception is FirebaseAuthUserCollisionException) Result.failure(AccountAlreadyExists())

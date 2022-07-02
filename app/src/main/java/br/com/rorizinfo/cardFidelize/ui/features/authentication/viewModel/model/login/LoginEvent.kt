@@ -5,6 +5,7 @@ sealed class LoginEvent {
     data class ShowAlert(val messageError: String) : LoginEvent()
     object OpenDialogBiometric : LoginEvent()
     object GoToForgotPassword : LoginEvent()
+    object ClearFields : LoginEvent()
     object GoToHome : LoginEvent()
     object GoToPendingRegister : LoginEvent()
     object GoToRegister : LoginEvent()

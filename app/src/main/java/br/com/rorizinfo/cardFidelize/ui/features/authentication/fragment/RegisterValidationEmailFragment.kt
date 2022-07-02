@@ -66,7 +66,7 @@ class RegisterValidationEmailFragment : Fragment() {
         viewModel.eventLiveData.observe(viewLifecycleOwner) { event ->
             when (event) {
                 is RegisterUserEvent.GoToBack -> findNavController().popBackStack()
-                is RegisterUserEvent.ShowAlertMessage -> binding.root.showMessage(event.message)
+                is RegisterUserEvent.ShowAlertMessage -> binding.tvError.text = event.message
                 is RegisterUserEvent.FinishRegisterUser -> {
                     findNavController().navigateWithAnim(R.id.goToSelectType, Bundle().apply {
                         putParcelable(RegisterChoseTypeFragment.EXTRA_USER, event.user)

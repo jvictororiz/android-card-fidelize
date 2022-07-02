@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class ClientRequest(
-    val userRequest: RegisterUserRequest,
+    val idClient: String,
+    val emailClient: String,
     val name: String,
 ) : Parcelable

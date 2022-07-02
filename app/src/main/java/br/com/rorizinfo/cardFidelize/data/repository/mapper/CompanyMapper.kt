@@ -5,7 +5,8 @@ import br.com.rorizinfo.cardFidelize.domain.model.Company
 
 
 fun Company.toCompanyRequest() = CompanyRequest(
-    userRequest = user.toUserRequest(),
+    userId = userId,
+    userEmail = userEmail,
     nameCompany = nameCompany,
     cnpj = cnpj
 )
