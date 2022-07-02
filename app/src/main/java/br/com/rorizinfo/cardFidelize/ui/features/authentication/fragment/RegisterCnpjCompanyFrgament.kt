@@ -51,7 +51,7 @@ class RegisterCnpjCompanyFrgament : Fragment() {
 
     private fun setupListeners() {
         binding.root.setOnClickListener {
-            binding.root.showKeyBoardView(binding.edtName)
+            binding.root.showKeyBoardView(binding.edtCnpj)
         }
 
         binding.edtCnpj.addTextChangedListener {
