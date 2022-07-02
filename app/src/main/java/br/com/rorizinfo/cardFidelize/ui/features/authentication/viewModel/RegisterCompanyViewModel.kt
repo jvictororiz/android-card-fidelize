@@ -28,9 +28,13 @@ class RegisterCompanyViewModel(
 
     private var company = Company(user)
 
-    val stateLiveData = MultipleLiveState<CompanyState>()
-    val eventLiveData = SingleLiveEvent<CompanyEvent>()
+    var stateLiveData = MultipleLiveState<CompanyState>()
+    var eventLiveData = SingleLiveEvent<CompanyEvent>()
 
+    fun clearState() {
+        stateLiveData = MultipleLiveState()
+        eventLiveData = SingleLiveEvent()
+    }
 
     fun validateCnpjField(cnpj: String) {
         this.company.cnpj = cnpj

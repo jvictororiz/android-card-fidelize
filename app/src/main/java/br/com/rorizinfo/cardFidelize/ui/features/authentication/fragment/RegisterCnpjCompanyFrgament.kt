@@ -35,6 +35,7 @@ class RegisterCnpjCompanyFrgament : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setupObservers()
+        viewModel.clearState()
     }
 
     override fun onResume() {
