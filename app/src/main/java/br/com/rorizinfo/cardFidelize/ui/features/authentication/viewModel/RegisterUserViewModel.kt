@@ -121,6 +121,7 @@ class RegisterUserViewModel(
         updateState { it.copy(showLoading = true) }
         val result = saveUserUseCase(user)
         if (result.isSuccess) {
+            user.id = result.getOrNull()?.id ?: ""
             RegisterUserEvent.GoToNext.run()
         } else {
             if (result.exceptionOrNull() is AccountAlreadyExists) {

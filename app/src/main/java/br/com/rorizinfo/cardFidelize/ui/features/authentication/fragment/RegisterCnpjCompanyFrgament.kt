@@ -12,7 +12,7 @@ import br.com.rorizinfo.cardFidelize.R
 import br.com.rorizinfo.cardFidelize.databinding.FragmentRegisterCnpjCompanyBinding
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterCompanyViewModel
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerCompany.CompanyEvent
-import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.nameUser.NameUserEvent
+import br.com.rorizinfo.cardFidelize.ui.util.applyCnpjMask
 import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
 import br.com.rorizinfo.cardFidelize.ui.util.showMessage
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -20,7 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class RegisterCnpjCompanyFrgament : Fragment() {
     private lateinit var binding: FragmentRegisterCnpjCompanyBinding
     private val viewModel by sharedViewModel<RegisterCompanyViewModel>()
-
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,39 +28,44 @@ class RegisterCnpjCompanyFrgament : Fragment() {
         binding = FragmentRegisterCnpjCompanyBinding.inflate(inflater, container, false)
         return binding.root
     }
-
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        configViews()
         setupListeners()
         setupObservers()
     }
-
+    
+    private fun configViews() {
+        binding.edtCnpj.applyCnpjMask()
+    }
+    
     private fun setupListeners() {
-        binding.edtName.addTextChangedListener {
+        binding.edtCnpj.addTextChangedListener {
             viewModel.validateCnpjField(it.toString())
         }
-
+        
         binding.btnNext.setOnClickListener {
             viewModel.tapOnNext()
         }
-
+        
         binding.btnCancel.setOnClickListener {
             viewModel.tapOnCancel()
         }
     }
-
+    
     private fun setupObservers() {
         viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
             binding.btnNext.isEnabled = state.enableButton
             binding.btnNext.isVisible = !state.showLoading
             binding.pbLoading.isVisible = state.showLoading
         }
-
+        
         viewModel.eventLiveData.observe(viewLifecycleOwner) { event ->
             when (event) {
                 CompanyEvent.GoToBack -> findNavController().popBackStack()
-                is CompanyEvent.GoToHome -> {
-                    findNavController().navigateWithAnim(R.id.registerNameUserFragment)
+                is CompanyEvent.GoToNextScreen -> {
+                    findNavController().navigateWithAnim(R.id.toHomeCompany, launcherSingleTop = true)
                 }
                 is CompanyEvent.OnCancel -> findNavController().popBackStack(
                     R.id.loginFragment,
@@ -70,7 +75,7 @@ class RegisterCnpjCompanyFrgament : Fragment() {
             }
         }
     }
-
+    
     companion object {
         private const val EXTRA_USER = "EXTRA_USER"
     }

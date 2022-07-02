@@ -8,7 +8,6 @@ sealed class CompanyEvent {
     object GoToBack : CompanyEvent()
     object OnCancel : CompanyEvent()
     data class AlertShowMessage(val message: String) : CompanyEvent()
-    data class GoToHome(val client: Client) : CompanyEvent()
-    data class GoToNextScreen(val company: Company): CompanyEvent()
-
+    data class GoToNextScreen(val company: Company) : CompanyEvent()
+    
 }

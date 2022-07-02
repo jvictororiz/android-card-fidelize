@@ -50,7 +50,7 @@ val modules = module {
     single { SaveUserUseCase(get()) }
     single { VerifyValidationAccountUseCase(get()) }
     single { ValidateNameCompanyUseCase(get()) }
-    single { ValidateCnpjCompanyUseCase(get()) }
+    single { ValidateCnpjCompanyUseCase() }
     single { SaveOrUpdateCompanyUseCase(get()) }
 
     //viewmodel

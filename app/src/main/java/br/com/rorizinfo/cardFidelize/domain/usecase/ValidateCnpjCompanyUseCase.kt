@@ -1,49 +1,37 @@
 package br.com.rorizinfo.cardFidelize.domain.usecase
 
-import android.content.Context
-import br.com.rorizinfo.cardFidelize.R
+const val LENGTH_CNPJ = 18
 
-const val LENGTH_CNPJ = 14
-
-class ValidateCnpjCompanyUseCase(private val context: Context) {
-
-    fun validateCnpj(cnpj: String) {
-        if (cnpj.length == LENGTH_CNPJ) {
-            if (checkCnpj(cnpj)) {
-                Result.success(null)
-            } else {
-                Result.failure(Exception(context.getString(R.string.error_cnpj_lenght)))
-            }
-        }
+class ValidateCnpjCompanyUseCase {
+    
+    private val WEIGHT_CNPJ = intArrayOf(6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2)
+    
+    operator fun invoke(cnpj: String): Boolean {
+        return cnpj.length == LENGTH_CNPJ && isValidCNPJ(
+            cnpj
+                .replace(".", "")
+                .replace("-", "")
+                .replace("/", "")
+        )
     }
-
-    fun checkCnpj(et: String): Boolean {
-        var str = et.replace("-", "").replace("/", "").replace(".", "")
-        var calc: Int
-        var num = 5
-        var sum = 0
-        for (x in 0..11) {
-            calc = str[x].toString().toInt() * num
-            sum += calc
-            --num
-            if (num == 1) num = 9
+    
+    private fun isValidCNPJ(cnpj: String?): Boolean {
+        if (cnpj == null || cnpj.length != 14) return false
+        val digito1: Int = calculateDigit(cnpj.substring(0, 12), WEIGHT_CNPJ)
+        val digito2: Int = calculateDigit(cnpj.substring(0, 12) + digito1, WEIGHT_CNPJ)
+        return cnpj == cnpj.substring(0, 12) + digito1.toString() + digito2.toString()
+    }
+    
+    private fun calculateDigit(str: String, peso: IntArray): Int {
+        var soma = 0
+        var indice = str.length - 1
+        var digito: Int
+        while (indice >= 0) {
+            digito = str.substring(indice, indice + 1).toInt()
+            soma += digito * peso[peso.size - str.length + indice]
+            indice--
         }
-        var rest = sum % 11
-        var test = 11 - rest
-        if (test < 2) test = 0
-        if (test != str[12].toString().toInt()) return false
-        num = 6
-        sum = 0
-        for (x in 0..12) {
-            calc = str[x].toString().toInt() * num
-            sum += calc
-            --num
-            if (num == 1) num = 9
-        }
-        rest = sum % 11
-        test = 11 - rest
-        if (test < 2) test = 0
-        if (test != str[13].toString().toInt()) return false
-        return true
+        soma = 11 - soma % 11
+        return if (soma > 9) 0 else soma
     }
 }
