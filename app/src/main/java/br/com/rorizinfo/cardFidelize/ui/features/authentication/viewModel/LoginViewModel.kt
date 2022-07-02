@@ -45,10 +45,14 @@ class LoginViewModel(
         LoginEvent.GoToForgotPassword.run()
     }
     
-    fun doLogin(email: String, password: String) = viewModelScope.launch {
+    fun doLogin(email: String, password: String, isBiometric: Boolean = false) = viewModelScope.launch {
         updateState { it.copy(showLoading = true) }
         val resultLogin = loginUserCase(email, password)
         if (resultLogin.isSuccess) {
+            if (isBiometric) {
+                localPreference.save(BasePreference.EmailUser, email)
+                localPreference.save(BasePreference.PasswordUser, password)
+            }
             if (resultLogin.getOrNull()?.isVerified == true) {
                 LoginEvent.GoToHome.run()
             } else {

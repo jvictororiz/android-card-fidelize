@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.rorizinfo.cardFidelize.R
+import br.com.rorizinfo.cardFidelize.data.preference.BasePreference
+import br.com.rorizinfo.cardFidelize.data.preference.LocalPreference
 import br.com.rorizinfo.cardFidelize.domain.usecase.SendResetPasswordUseCase
 import br.com.rorizinfo.cardFidelize.domain.usecase.ValidateEmailUseCase
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.resetPassword.ResetPasswordEvent
@@ -16,6 +18,7 @@ import kotlinx.coroutines.launch
 class ResetPasswordViewModel(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val resetPasswordUseCase: SendResetPasswordUseCase,
+    private val localPreference: LocalPreference,
     private val context: Context
 ) : ViewModel() {
     val stateLiveData = MultipleLiveState<ResetPasswordState>()
@@ -32,6 +35,8 @@ class ResetPasswordViewModel(
         updateState { it.copy(showLoading = true) }
         val result = resetPasswordUseCase(email)
         if (result.isSuccess) {
+            localPreference.save(BasePreference.EmailUser, "")
+            localPreference.save(BasePreference.PasswordUser, "")
             ResetPasswordEvent.ShowAlertMessage(
                 context.getString(R.string.message_send_reset_password_email)
             ).run()
