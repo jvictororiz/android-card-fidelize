@@ -1,4 +1,4 @@
-package br.com.rorizinfo.cardFidelize.ui.features.homeUser
+package br.com.rorizinfo.cardFidelize.ui.features.home.user
 
 import android.os.Bundle
 import android.view.LayoutInflater

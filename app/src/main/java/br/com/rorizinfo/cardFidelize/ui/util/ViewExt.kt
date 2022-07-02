@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -42,50 +43,37 @@ fun unmask(s: String): String {
     return s.replace("-", "").replace("/", "").replace(".", "")
 }
 
-fun EditText.mask(ediTxt: EditText): TextWatcher {
-    var isUpdating: Boolean = false
+fun EditText.applyCnpjMask() {
+    var isUpdating = false
     var mask = ""
     var old = ""
-    return object : TextWatcher {
-        override fun afterTextChanged(s: Editable) {
+    addTextChangedListener {
+        val str = unmask(text.toString())
+        var mascara = ""
+        mask = when (str.length) {
+            in 0..11 -> "###.###.###-##"
+            else -> "##.###.###/####-##"
         }
-
-        override fun beforeTextChanged(
-            s: CharSequence,
-            start: Int,
-            count: Int,
-            after: Int
-        ) {
+        if (isUpdating) {
+            old = str
+            isUpdating = false
+            return@addTextChangedListener
         }
-
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-            val str = unmask(s.toString())
-            var mascara = ""
-            when (str.length) {
-                in 0..11 -> mask = "###.###.###-##"
-                else -> mask = "##.###.###/####-##"
+        var i = 0
+        for (m in mask.toCharArray()) {
+            if (m != '#' && str.length > old.length) {
+                mascara += m
+                continue
             }
-            if (isUpdating) {
-                old = str
-                isUpdating = false
-                return
+            try {
+                mascara += str[i]
+            } catch (e: Exception) {
+                break
             }
-            var i = 0
-            for (m in mask.toCharArray()) {
-                if (m != '#' && str.length > old.length) {
-                    mascara += m
-                    continue
-                }
-                try {
-                    mascara += str[i]
-                } catch (e: Exception) {
-                    break
-                }
-                i++
-            }
-            isUpdating = true
-            ediTxt.setText(mascara)
-            ediTxt.setSelection(mascara.length)
+            i++
         }
+        isUpdating = true
+        setText(mascara)
+        setSelection(mascara.length)
     }
 }

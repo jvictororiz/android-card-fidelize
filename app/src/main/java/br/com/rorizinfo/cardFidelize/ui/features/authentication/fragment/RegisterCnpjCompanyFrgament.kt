@@ -12,7 +12,7 @@ import br.com.rorizinfo.cardFidelize.R
 import br.com.rorizinfo.cardFidelize.databinding.FragmentRegisterCnpjCompanyBinding
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterCompanyViewModel
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerCompany.CompanyEvent
-import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.nameUser.NameUserEvent
+import br.com.rorizinfo.cardFidelize.ui.util.applyCnpjMask
 import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
 import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoard
 import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoardView
@@ -33,6 +33,7 @@ class RegisterCnpjCompanyFrgament : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        configViews()
         setupListeners()
         setupObservers()
         viewModel.clearState()
@@ -41,7 +42,11 @@ class RegisterCnpjCompanyFrgament : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        binding.edtName.showKeyBoard()
+        binding.edtCnpj.showKeyBoard()
+    }
+
+    private fun configViews() {
+        binding.edtCnpj.applyCnpjMask()
     }
 
     private fun setupListeners() {
@@ -49,7 +54,7 @@ class RegisterCnpjCompanyFrgament : Fragment() {
             binding.root.showKeyBoardView(binding.edtName)
         }
 
-        binding.edtName.addTextChangedListener {
+        binding.edtCnpj.addTextChangedListener {
             viewModel.validateCnpjField(it.toString())
         }
 
@@ -72,8 +77,8 @@ class RegisterCnpjCompanyFrgament : Fragment() {
         viewModel.eventLiveData.observe(viewLifecycleOwner) { event ->
             when (event) {
                 CompanyEvent.GoToBack -> findNavController().popBackStack()
-                is CompanyEvent.GoToHome -> {
-                    findNavController().navigateWithAnim(R.id.registerNameUserFragment)
+                is CompanyEvent.GoToNextScreen -> {
+                    findNavController().navigateWithAnim(R.id.toHomeCompany, launcherSingleTop = true)
                 }
                 is CompanyEvent.OnCancel -> findNavController().popBackStack(
                     R.id.loginFragment,

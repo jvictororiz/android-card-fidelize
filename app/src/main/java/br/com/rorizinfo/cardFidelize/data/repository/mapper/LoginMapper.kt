@@ -6,6 +6,7 @@ import br.com.rorizinfo.cardFidelize.domain.model.RegisterUser
 import br.com.rorizinfo.cardFidelize.domain.model.User
 
 fun RegisterUserResponse.toRegisterUser() = RegisterUser(
+    id = idUser,
     isVerified = isVerified,
     email = email
 )

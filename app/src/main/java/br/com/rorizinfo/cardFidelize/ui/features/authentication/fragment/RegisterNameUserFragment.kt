@@ -14,12 +14,12 @@ import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.Regist
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.nameUser.NameUserEvent
 import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
 import br.com.rorizinfo.cardFidelize.ui.util.showMessage
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.core.parameter.parametersOf
 
 class RegisterNameUserFragment : Fragment() {
     private lateinit var binding: FragmentRegisterNameUserBinding
-    private val viewModel by viewModel<RegisterNameUserViewModel> {
+    private val viewModel by sharedViewModel<RegisterNameUserViewModel> {
         parametersOf(arguments?.getParcelable(EXTRA_USER))
     }
     
@@ -62,7 +62,7 @@ class RegisterNameUserFragment : Fragment() {
             when (event) {
                 NameUserEvent.GoToBack -> findNavController().popBackStack()
                 is NameUserEvent.GoToHome -> {
-                    findNavController().navigateWithAnim(R.id.toHome)
+                    findNavController().navigateWithAnim(R.id.toHome, launcherSingleTop = true)
                 }
                 is NameUserEvent.OnCancel -> findNavController().popBackStack(R.id.loginFragment, false)
                 is NameUserEvent.AlertShowMessage -> binding.root.showMessage(event.message)

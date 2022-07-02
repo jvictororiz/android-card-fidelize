@@ -20,7 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="br.com.rorizinfo.cardFidelize.ui.features.homeUser.HomeUserActivity" />
+        <activity android:name="br.com.rorizinfo.cardFidelize.ui.features.home.user.HomeUserActivity" />
+        <activity android:name=".ui.features.home.company.HomeCompanyActivity" />
     </application>
 
 </manifest>

@@ -32,7 +32,7 @@ class UserLoginServiceFirebase(
             val resultUser = firebaseAuth.createUserWithEmailAndPassword(user.email, user.password).await()
             val idUser = database.push().key ?: ""
             database.child(idUser).setValue(user.apply { id = idUser }).await()
-            Result.success(RegisterUserResponse(resultUser.user?.isEmailVerified == true, user.email))
+            Result.success(RegisterUserResponse(idUser, resultUser.user?.isEmailVerified == true, user.email))
         } catch (exception: Exception) {
             if (exception is FirebaseAuthUserCollisionException) Result.failure(AccountAlreadyExists())
             else Result.failure(exception)
@@ -46,7 +46,7 @@ class UserLoginServiceFirebase(
     override suspend fun doLogin(email: String, password: String): Result<RegisterUserResponse> {
         return try {
             val resultLogin = firebaseAuth.signInWithEmailAndPassword(email, password).await()
-            Result.success(RegisterUserResponse(resultLogin.user?.isEmailVerified == true, email))
+            Result.success(RegisterUserResponse("", resultLogin.user?.isEmailVerified == true, email))
         } catch (exception: Exception) {
             Result.failure(exception)
         }

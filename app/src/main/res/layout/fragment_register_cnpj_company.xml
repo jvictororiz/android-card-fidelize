@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvCancel" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputName"
+        android:id="@+id/inputCnpj"
         style="@style/PrimaryInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -46,10 +46,10 @@
         app:startIconDrawable="@drawable/ic_company">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edtName"
+            android:id="@+id/edtCnpj"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+            android:inputType="number"
             android:maxLines="1"
             android:textSize="18sp" />
 

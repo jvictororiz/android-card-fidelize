@@ -28,7 +28,7 @@ class RegisterNameCompanyFragment : Fragment() {
     private val viewModel by sharedViewModel<RegisterCompanyViewModel> {
         parametersOf(arguments?.getParcelable(RegisterNameUserFragment.EXTRA_USER))
     }
-
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,7 +36,7 @@ class RegisterNameCompanyFragment : Fragment() {
         binding = FragmentRegisterNameCompanyBinding.inflate(inflater, container, false)
         return binding.root
     }
-
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
@@ -49,36 +49,36 @@ class RegisterNameCompanyFragment : Fragment() {
 
         binding.edtName.showKeyBoard()
     }
-
+    
     private fun setupListeners() {
         binding.root.setOnClickListener {
             binding.root.showKeyBoardView(binding.edtName)
         }
         binding.edtName.addTextChangedListener {
-            viewModel.validateCnpjField(it.toString())
+            viewModel.validateNameField(it.toString())
         }
-
+        
         binding.btnNext.setOnClickListener {
             viewModel.tapOnNext()
         }
-
+        
         binding.btnCancel.setOnClickListener {
             viewModel.tapOnCancel()
         }
     }
-
+    
     private fun setupObservers() {
         viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
             binding.btnNext.isEnabled = state.enableButton
             binding.btnNext.isVisible = !state.showLoading
             binding.pbLoading.isVisible = state.showLoading
         }
-
+        
         viewModel.eventLiveData.observe(viewLifecycleOwner) { event ->
             when (event) {
                 is CompanyEvent.GoToBack -> findNavController().popBackStack()
                 is CompanyEvent.GoToNextScreen -> {
-
+                    findNavController().navigateWithAnim(R.id.toCnpj)
                 }
                 is CompanyEvent.OnCancel -> findNavController().popBackStack(
                     R.id.loginFragment,
@@ -88,7 +88,7 @@ class RegisterNameCompanyFragment : Fragment() {
             }
         }
     }
-
+    
     companion object {
         const val EXTRA_USER = "EXTRA_USER"
     }

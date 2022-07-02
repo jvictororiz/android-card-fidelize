@@ -58,12 +58,6 @@
             app:destination="@id/registerChoseTypeFragment" />
     </fragment>
 
-    <activity
-        android:id="@+id/homeUserActivity"
-        android:name="br.com.rorizinfo.cardFidelize.ui.features.homeUser.HomeUserActivity"
-        android:label="activity_second"
-        tools:layout="@layout/activity_user_home" />
-
     <fragment
         android:id="@+id/registerPasswordFragment2"
         android:name="br.com.rorizinfo.cardFidelize.ui.features.authentication.fragment.RegisterPasswordFragment"
@@ -96,5 +90,20 @@
         android:name="br.com.rorizinfo.cardFidelize.ui.features.authentication.fragment.RegisterCnpjCompanyFrgament"
         android:label="RegisterCnpjCompanyFrgament"
         tools:layout="@layout/fragment_register_cnpj_company" >
+        <action
+            android:id="@+id/toHomeCompany"
+            app:destination="@id/homeCompanyActivity" />
     </fragment>
+
+    <activity
+        android:id="@+id/homeUserActivity"
+        android:name="br.com.rorizinfo.cardFidelize.ui.features.home.user.HomeUserActivity"
+        android:label="activity_second"
+        tools:layout="@layout/activity_user_home" />
+
+    <activity
+        android:id="@+id/homeCompanyActivity"
+        tools:layout="@layout/activity_company_home"
+        android:name="br.com.rorizinfo.cardFidelize.ui.features.home.company.HomeCompanyActivity"
+        android:label="HomeCompanyActivity" />
 </navigation>

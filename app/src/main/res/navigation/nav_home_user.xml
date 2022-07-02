@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/homeUserFragment"
         tools:layout="@layout/fragment_home_user"
-        android:name="br.com.rorizinfo.cardFidelize.ui.features.homeUser.HomeUserFragment"
+        android:name="br.com.rorizinfo.cardFidelize.ui.features.home.user.HomeUserFragment"
         android:label="HomeUserFragment" />
 </navigation>
