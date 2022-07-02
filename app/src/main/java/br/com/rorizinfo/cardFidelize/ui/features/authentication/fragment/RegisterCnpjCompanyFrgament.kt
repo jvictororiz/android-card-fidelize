@@ -14,6 +14,8 @@ import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.Regist
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerCompany.CompanyEvent
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.nameUser.NameUserEvent
 import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
+import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoard
+import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoardView
 import br.com.rorizinfo.cardFidelize.ui.util.showMessage
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -35,7 +37,17 @@ class RegisterCnpjCompanyFrgament : Fragment() {
         setupObservers()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.edtName.showKeyBoard()
+    }
+
     private fun setupListeners() {
+        binding.root.setOnClickListener {
+            binding.root.showKeyBoardView(binding.edtName)
+        }
+
         binding.edtName.addTextChangedListener {
             viewModel.validateCnpjField(it.toString())
         }

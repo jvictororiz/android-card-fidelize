@@ -16,6 +16,8 @@ import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.Regist
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerCompany.CompanyEvent
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.nameUser.NameUserEvent
 import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
+import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoard
+import br.com.rorizinfo.cardFidelize.ui.util.showKeyBoardView
 import br.com.rorizinfo.cardFidelize.ui.util.showMessage
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,7 +25,7 @@ import org.koin.core.parameter.parametersOf
 
 class RegisterNameCompanyFragment : Fragment() {
     private lateinit var binding: FragmentRegisterNameCompanyBinding
-    private val viewModel by sharedViewModel<RegisterCompanyViewModel>{
+    private val viewModel by sharedViewModel<RegisterCompanyViewModel> {
         parametersOf(arguments?.getParcelable(RegisterNameUserFragment.EXTRA_USER))
     }
 
@@ -41,7 +43,16 @@ class RegisterNameCompanyFragment : Fragment() {
         setupObservers()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.edtName.showKeyBoard()
+    }
+
     private fun setupListeners() {
+        binding.root.setOnClickListener {
+            binding.root.showKeyBoardView(binding.edtName)
+        }
         binding.edtName.addTextChangedListener {
             viewModel.validateCnpjField(it.toString())
         }
