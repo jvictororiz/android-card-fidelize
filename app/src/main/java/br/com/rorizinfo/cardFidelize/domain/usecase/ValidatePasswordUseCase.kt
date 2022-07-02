@@ -11,7 +11,7 @@ class ValidatePasswordUseCase(private val context: Context) {
             password.isEmpty() -> {
                 Result.failure<String>(Exception(context.getString(R.string.empty_password_error)))
             }
-            password.length < 5 -> {
+            password.length < 6 -> {
                 Result.failure<Any>(Exception(context.getString(R.string.length_password_error)))
             }
             else -> Result.success(null)

@@ -16,7 +16,7 @@
     <string name="company">Empresa</string>
     <string name="client">Cliente</string>
     <string name="register_user_password">Crie uma <b><font color="#2196F3">senha</font></b>:</string>
-    <string name="min_4_characteres">Mínimo de 5 caracteres</string>
+    <string name="min_4_characteres">Mínimo de 6 caracteres</string>
     <string name="back">Voltar</string>
     <string name="register_user_confirm_password">Confirme sua <b><font color="#2196F3">senha</font></b>:</string>
     <string name="example_password">******</string>
@@ -31,7 +31,7 @@
     <string name="error_login_fingerprint">Erro ao fazer login com sua biometria</string>
     <string name="empty_password_error">"Você precisar digitar uma senha para continuar "</string>
     <string name="empty_confirm_password_error">"Você precisar confirmar sua senha para continuar "</string>
-    <string name="length_password_error">Sua senha precisa conter cinco dígitos</string>
+    <string name="length_password_error">Sua senha precisa conter seis dígitos</string>
     <string name="message_password_not_equals">"Ops! As senhas não são iguais , tente novamente "</string>
     <string name="emailAlreadyExists">O e-mail digitado já foi cadastrado, se não se lembrar da sua senha, use a opção esqueci minha senha.</string>
     <!-- TODO: Remove or change this placeholder text -->
