@@ -56,7 +56,7 @@ val modules = module {
     //viewmodel
     viewModel { LoginViewModel(get(), get(), get(), get()) }
     viewModel { RegisterChoseTypeViewModel() }
-    viewModel { RegisterCompanyViewModel(get(), get()) }
+    viewModel { RegisterCompanyViewModel(get(), get(), get(), get(), get()) }
     viewModel {
         RegisterUserViewModel(
             get(),
@@ -70,7 +70,7 @@ val modules = module {
             get()
         )
     }
-    viewModel { params -> RegisterNameUserViewModel(params.get(), get(), get(), get()) }
+    viewModel { params -> RegisterNameUserViewModel(params.get(), get(), get(), get(), get()) }
 
     //service
     single<UserLoginService> { UserLoginServiceFirebase(get(), get()) }

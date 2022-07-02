@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import br.com.rorizinfo.cardFidelize.R
 import br.com.rorizinfo.cardFidelize.databinding.FragmentRegisterCnpjCompanyBinding
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.RegisterCompanyViewModel
+import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerCompany.CompanyEvent
 import br.com.rorizinfo.cardFidelize.ui.features.authentication.viewModel.model.registerUser.nameUser.NameUserEvent
 import br.com.rorizinfo.cardFidelize.ui.util.navigateWithAnim
 import br.com.rorizinfo.cardFidelize.ui.util.showMessage
@@ -57,15 +58,15 @@ class RegisterCnpjCompanyFrgament : Fragment() {
 
         viewModel.eventLiveData.observe(viewLifecycleOwner) { event ->
             when (event) {
-                NameUserEvent.GoToBack -> findNavController().popBackStack()
-                is NameUserEvent.GoToHome -> {
+                CompanyEvent.GoToBack -> findNavController().popBackStack()
+                is CompanyEvent.GoToHome -> {
                     findNavController().navigateWithAnim(R.id.registerNameUserFragment)
                 }
-                is NameUserEvent.OnCancel -> findNavController().popBackStack(
+                is CompanyEvent.OnCancel -> findNavController().popBackStack(
                     R.id.loginFragment,
                     false
                 )
-                is NameUserEvent.AlertShowMessage -> binding.root.showMessage(event.message)
+                is CompanyEvent.AlertShowMessage -> binding.root.showMessage(event.message)
             }
         }
     }
